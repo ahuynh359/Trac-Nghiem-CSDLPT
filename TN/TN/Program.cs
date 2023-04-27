@@ -14,7 +14,7 @@ namespace TN
 
         public static SqlConnection con = new SqlConnection();
         public static string conStr;
-        public static string conPublisher = "Data Source=ABC" + ";Initial Catalog=TN" + ";User ID=sa" + ";password=123";
+        public static string conPublisher = "Data Source=ABC" + ";Initial Catalog=TN" + ";Integrated Security=true";
 
 
         public static SqlDataReader myReader;
@@ -34,7 +34,7 @@ namespace TN
 
         //Lưu Db phân mảnh khi đăng nhập
         public static BindingSource bsDanhSachPhanManh = new BindingSource();
-        public static frmDangNhap frmChinh;
+        public static frmMain frmChinh;
 
         public static int ketNoi()
         {
@@ -47,7 +47,7 @@ namespace TN
                 con.Close();
             try
             {
-                MessageBox.Show("server name=" + serverName + "\nDB=" + database + "\nuser=" + mLogin + "\npass=" + password);
+               
                 conStr = "Data Source=" + serverName + ";Initial Catalog=" + database + ";User ID=" +
                          mLogin + ";password=" + password;
                 con.ConnectionString = conStr;
@@ -84,7 +84,32 @@ namespace TN
 
             }
         }
-        
+
+        public static int execSqlNonQuery(string str)
+        {
+            SqlCommand sqlCommand = new SqlCommand(str, con);
+            sqlCommand.CommandType = CommandType.Text;
+            sqlCommand.CommandTimeout = 600; //10 phut
+
+            if (con.State == ConnectionState.Closed) con.Open();
+            try
+            {
+                sqlCommand.ExecuteNonQuery();
+                con.Close();
+                return 0;
+            }
+            catch (SqlException e)
+            {
+                if (e.Message.Contains("Error converting data type varchar to int")) MessageBox.Show("Bạn format cell lại cột \"Ngày thi\"qua kiểu Number hoặc mở file excel.");
+                else
+                    MessageBox.Show(e.Message);
+                con.Close();
+                return e.State; //Trang thai gui loi tu RAISEERROR trong SQL Server qua
+
+
+            }
+        }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -94,7 +119,7 @@ namespace TN
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            frmChinh = new frmDangNhap();
+            frmChinh = new frmMain();
             Application.Run(frmChinh);
         }
     }
