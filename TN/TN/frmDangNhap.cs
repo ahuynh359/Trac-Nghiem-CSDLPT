@@ -70,14 +70,14 @@ namespace TN
         {
             try
             {
-                Program.serverName = cmbCoSo.SelectedIndex.ToString();
+                Program.serverName = cmbCoSo.SelectedValue.ToString();
             }
             catch (Exception)
             {
             }
         }
 
-     
+
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
@@ -87,6 +87,7 @@ namespace TN
                 return;
             }
 
+
             Program.mLogin = txtTenDangNhap.Text;
             Program.password = txtMatKhau.Text;
 
@@ -95,7 +96,11 @@ namespace TN
             Program.mCoSo = cmbCoSo.SelectedIndex;
             Program.mLoginDN = Program.mLogin;
             Program.passwordDN = Program.password;
-            string str = "EXEC sp_DangNhapSinhVien '" + Program.mLogin + "'";
+            string str = "";
+            if (rbtnSinhVien.Checked)
+                str = "EXEC sp_DangNhapSinhVien '" + Program.mLogin + "'";
+            else if (rbtnGiangVien.Checked)
+                str = "EXEC sp_DangNhapGiangVien '" + Program.mLogin + "'";
 
             Program.myReader = Program.execSqlDataReader(str);
             if (Program.myReader == null) return;
@@ -105,25 +110,70 @@ namespace TN
             if (Convert.IsDBNull(Program.username))
             {
                 MessageBox.Show("Login nhập vào không có quyền\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
+
+            if (rbtnSinhVien.Checked && Program.myReader.GetString(2).Trim().Equals("GIANGVIEN"))
+            {
+                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền GIẢNG VIÊN \nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (rbtnSinhVien.Checked && Program.myReader.GetString(2).Trim().Equals("TRUONG"))
+            {
+                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền TRUONG\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (rbtnSinhVien.Checked && Program.myReader.GetString(2).Trim().Equals("COSO"))
+            {
+                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền COSO\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (rbtnGiangVien.Checked && Program.myReader.GetString(2).Trim().Equals("SINHVIEN"))
+            {
+                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền SINH VIÊN\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
 
             Program.mHoTen = Program.myReader.GetString(1);
             Program.mGroup = Program.myReader.GetString(2);
             Program.myReader.Close();
-            //Program.frmChinh.showMenu();
+            Program.con.Close();
+            Program.frmChinh.siMaNv.Caption = "Mã User: " + Program.username;
+            Program.frmChinh.siHoTen.Caption = "Họ Tên: " + Program.mHoTen;
+            Program.frmChinh.siNhom.Caption = "Nhóm: " + Program.mGroup;
+            Close();
+
+            Program.frmChinh.btnMainDangNhap.Enabled = false;
+            Program.frmChinh.btnTaoTaiKhoan.Enabled = true;
+            Program.frmChinh.btnDangXuat.Enabled = true;
+            Program.frmChinh.pageBaoCao.Visible = true;
+            Program.frmChinh.pageNhapXuat.Visible = true;
 
 
 
 
-
-            //Program.mCoSo = cmbCoSo.SelectedIndex;
 
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
             Close();
-            Program.frmChinh.Close();
         }
+
+        private void cbHienMK_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbHienMK.Checked)
+            {
+                txtMatKhau.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txtMatKhau.UseSystemPasswordChar = true;
+            }
+        }
+        
     }
+
 }
