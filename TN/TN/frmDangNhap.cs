@@ -87,6 +87,7 @@ namespace TN
                 return;
             }
 
+
             Program.mLogin = txtTenDangNhap.Text;
             Program.password = txtMatKhau.Text;
 
@@ -109,7 +110,31 @@ namespace TN
             if (Convert.IsDBNull(Program.username))
             {
                 MessageBox.Show("Login nhập vào không có quyền\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
+
+
+            if (rbtnSinhVien.Checked && Program.myReader.GetString(2).Trim().Equals("GIANGVIEN"))
+            {
+                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền GIẢNG VIÊN \nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (rbtnSinhVien.Checked && Program.myReader.GetString(2).Trim().Equals("TRUONG"))
+            {
+                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền TRUONG\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (rbtnSinhVien.Checked && Program.myReader.GetString(2).Trim().Equals("COSO"))
+            {
+                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền COSO\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else if (rbtnGiangVien.Checked && Program.myReader.GetString(2).Trim().Equals("SINHVIEN"))
+            {
+                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền SINH VIÊN\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            
 
             Program.mHoTen = Program.myReader.GetString(1);
             Program.mGroup = Program.myReader.GetString(2);
@@ -123,6 +148,8 @@ namespace TN
             Program.frmChinh.btnMainDangNhap.Enabled = false;
             Program.frmChinh.btnTaoTaiKhoan.Enabled = true;
             Program.frmChinh.btnDangXuat.Enabled = true;
+            Program.frmChinh.pageBaoCao.Visible = true;
+            Program.frmChinh.pageNhapXuat.Visible = true;
 
 
 
@@ -146,6 +173,7 @@ namespace TN
                 txtMatKhau.UseSystemPasswordChar = true;
             }
         }
+        
     }
 
 }

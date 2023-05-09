@@ -54,7 +54,7 @@ namespace TN
                 con.Open();
                 return 1;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 MessageBox.Show("Lỗi Kết nối CSDL\nBạn xem lại username và password.", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return 0;
@@ -75,10 +75,10 @@ namespace TN
                 reader = cmd.ExecuteReader();
                 return reader;
             }
-            catch (SqlException e)
+            catch (SqlException ex)
             {
                 con.Close();
-                MessageBox.Show(e.Message);
+                MessageBox.Show(ex.Message);
                 return null;
 
 
