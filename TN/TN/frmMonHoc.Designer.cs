@@ -60,9 +60,6 @@ namespace TN
             this.bdsBangDiem = new System.Windows.Forms.BindingSource(this.components);
             this.bdsBoDe = new System.Windows.Forms.BindingSource(this.components);
             this.bdsGiaoVienDangKy = new System.Windows.Forms.BindingSource(this.components);
-            this.lbCoSo = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cmbCoSo = new System.Windows.Forms.ComboBox();
             this.gvMonHoc = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colMAMH = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTENMH = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -78,7 +75,6 @@ namespace TN
             ((System.ComponentModel.ISupportInitialize)(this.bdsBangDiem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsBoDe)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsGiaoVienDangKy)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvMonHoc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMonHoc)).BeginInit();
             this.SuspendLayout();
@@ -292,12 +288,11 @@ namespace TN
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(tENMHLabel);
             this.groupBox1.Controls.Add(this.edtTenMH);
             this.groupBox1.Controls.Add(mAMHLabel);
             this.groupBox1.Controls.Add(this.edtMaMH);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 572);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1478, 345);
@@ -340,33 +335,6 @@ namespace TN
             this.bdsGiaoVienDangKy.DataMember = "FK_GIAOVIEN_DANGKY_MONHOC1";
             this.bdsGiaoVienDangKy.DataSource = this.bdsMonHoc;
             // 
-            // lbCoSo
-            // 
-            this.lbCoSo.AutoSize = true;
-            this.lbCoSo.Location = new System.Drawing.Point(617, 26);
-            this.lbCoSo.Name = "lbCoSo";
-            this.lbCoSo.Size = new System.Drawing.Size(63, 20);
-            this.lbCoSo.TabIndex = 11;
-            this.lbCoSo.Text = "CƠ SỞ:";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.cmbCoSo);
-            this.panel1.Controls.Add(this.lbCoSo);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 34);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1478, 70);
-            this.panel1.TabIndex = 13;
-            // 
-            // cmbCoSo
-            // 
-            this.cmbCoSo.FormattingEnabled = true;
-            this.cmbCoSo.Location = new System.Drawing.Point(698, 23);
-            this.cmbCoSo.Name = "cmbCoSo";
-            this.cmbCoSo.Size = new System.Drawing.Size(265, 28);
-            this.cmbCoSo.TabIndex = 12;
-            // 
             // gvMonHoc
             // 
             this.gvMonHoc.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
@@ -399,15 +367,14 @@ namespace TN
             // 
             // gcMonHoc
             // 
-            this.gcMonHoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.gcMonHoc.DataSource = this.bdsMonHoc;
-            this.gcMonHoc.Location = new System.Drawing.Point(0, 116);
+            this.gcMonHoc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gcMonHoc.Location = new System.Drawing.Point(0, 34);
             this.gcMonHoc.MainView = this.gvMonHoc;
             this.gcMonHoc.MenuManager = this.barManager1;
             this.gcMonHoc.Name = "gcMonHoc";
             this.gcMonHoc.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.gcMonHoc.Size = new System.Drawing.Size(1478, 450);
+            this.gcMonHoc.Size = new System.Drawing.Size(1478, 538);
             this.gcMonHoc.TabIndex = 5;
             this.gcMonHoc.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvMonHoc});
@@ -417,7 +384,6 @@ namespace TN
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1478, 944);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gcMonHoc);
             this.Controls.Add(this.barDockControlLeft);
@@ -438,8 +404,6 @@ namespace TN
             ((System.ComponentModel.ISupportInitialize)(this.bdsBangDiem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsBoDe)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsGiaoVienDangKy)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvMonHoc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcMonHoc)).EndInit();
             this.ResumeLayout(false);
@@ -475,9 +439,6 @@ namespace TN
         private System.Windows.Forms.BindingSource bdsBoDe;
         private TNDataSetTableAdapters.GIAOVIEN_DANGKYTableAdapter giaoVien_DangKyTableAdapter;
         private System.Windows.Forms.BindingSource bdsGiaoVienDangKy;
-        private System.Windows.Forms.Label lbCoSo;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox cmbCoSo;
         private DevExpress.XtraBars.BarMdiChildrenListItem barMdiChildrenListItem1;
         private DevExpress.XtraGrid.GridControl gcMonHoc;
         private DevExpress.XtraGrid.Views.Grid.GridView gvMonHoc;

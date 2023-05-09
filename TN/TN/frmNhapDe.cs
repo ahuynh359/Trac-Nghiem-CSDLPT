@@ -168,6 +168,8 @@ namespace TN
                 //Tạo 1 dòng mới dữ liệu
                 bdsBoDe.AddNew();
 
+                //Trỏ con trỏ
+                edtCauHoi.Focus();
 
             }
             catch (Exception ex)
@@ -275,7 +277,6 @@ namespace TN
             {
 
                 this.boDeTableAdapter.Fill(this.DS.BODE);
-                this.gcBoDe.Enabled = true;
                 MessageBox.Show("Làm mới thành công", "Thông báo", MessageBoxButtons.OK);
             }
             catch (Exception ex)
@@ -304,6 +305,45 @@ namespace TN
 
             Close();
 
+        }
+
+        private void btnHoanTac_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            //Nếu ko có phục hồi, thêm, xóa, sữa -> disble button hoàn tác
+            if (undoList.Count == 0)
+            {
+                MessageBox.Show("Không còn thao tác hoàn tác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnHoanTac.Enabled = false;
+                return;
+
+            }
+            try
+            {
+                //Nếu đang thêm mới thì xóa dữ liệu thoát ra
+                if (isAdd)
+                {
+                    bdsBoDe.RemoveCurrent();
+                    this.boDeTableAdapter.Fill(this.DS.BODE);
+                    gcBoDe.Enabled = true;
+                    toggleButton();
+                    isAdd = false;
+                    return;
+                }
+
+
+                //Hoàn tác dữ liệu
+                bdsBoDe.CancelEdit();
+                string str = undoList.Pop();
+                MessageBox.Show(str);
+                int result = Program.execSqlNonQuery(str);
+                if (result == 0) MessageBox.Show("Lôi khi hoàn tác");
+                this.boDeTableAdapter.Fill(this.DS.BODE);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi hoàn tác dữ liệu" + ex.Message, "Thông báo", MessageBoxButtons.OK);
+            }
         }
     }
 }

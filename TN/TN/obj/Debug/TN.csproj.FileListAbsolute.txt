@@ -110,6 +110,7 @@ C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.csproj.CoreCompileIn
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.csproj.CopyComplete
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.exe
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.pdb
+<<<<<<< HEAD
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.frmMonHoc.resources
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\bin\Debug\DevExpress.XtraGrid.v19.2.dll
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\bin\Debug\DevExpress.XtraLayout.v19.2.dll
@@ -152,3 +153,5 @@ C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.frmKhoaLop.resources
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.frmNhapDe.resources
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.frmGiaoVien.resources
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.frmSinhVien.resources
+=======
+>>>>>>> fdf5f6c6a83a0eddf0013ae224668235c55d2da0

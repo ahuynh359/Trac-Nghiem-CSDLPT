@@ -42,25 +42,17 @@ namespace TN
             // TODO: This line of code loads data into the 'tNDataSet.MONHOC' table. You can move, or remove it, as needed.
             this.monHocTableAdapter.Fill(this.DS.MONHOC);
 
-            cmbCoSo.DataSource = Program.bsDanhSachPhanManh;/*sao chep bingding source tu form dang nhap*/
-            cmbCoSo.DisplayMember = "TENCS";
-            cmbCoSo.ValueMember = "TENSERVER";
-            cmbCoSo.SelectedIndex = 1;
-            cmbCoSo.SelectedIndex = 0;
 
-            //Chi duoc xem du lieu va chuyen doi chi nhanh
+
+            //Chỉ được xem dữ liệu nên tắt hết các nút
             if (Program.mGroup == "TRUONG")
             {
                 setButtonVisibilityOff();
-                toggleCmbCoSo(false);
 
             }
-
             else if (Program.mGroup == "COSO")
             {
                 setButtonVisibilityOn();
-                toggleCmbCoSo(true);
-                toggleButton();
 
             }
 
@@ -87,11 +79,7 @@ namespace TN
             btnThoat.Enabled = btnThoatStage;
         }
 
-        private void toggleCmbCoSo(bool state)
-        {
-            lbCoSo.Enabled = state;
-            cmbCoSo.Enabled = state;
-        }
+
 
         private int checkDuplicateData()
         {
@@ -214,6 +202,8 @@ namespace TN
                 bdsMonHoc.EndEdit();
                 monHocTableAdapter.Update(this.DS.MONHOC);
                 gcMonHoc.Enabled = true;
+                //Trỏ con trỏ vào dữ liệu mới thêm
+                bdsMonHoc.Position = bdsMonHoc.Find("MAMH", edtMaMH.Text.Trim());
             }
             catch (Exception e)
             {
@@ -242,8 +232,8 @@ namespace TN
                 //Nhay xuong cuoi bang them 1 dong moi
                 bdsMonHoc.AddNew();
 
-                //Ko cho chuyen co so
-                toggleCmbCoSo(false);
+
+                edtMaMH.Focus();
 
 
             }
@@ -267,7 +257,7 @@ namespace TN
             check = checkValidData();
             if (check == 0) return;
 
-            //Neu dang them
+            //Nếu đang thêm
             if (isAdd)
             {
                 check = checkDuplicateData();
@@ -282,25 +272,25 @@ namespace TN
                     check = wirteDataToDB();
                     if (check == 0) return;
 
-                    //sau do lay du lieu cho nut hoan tac 
+                    //Lấy dữ liệu để cho vào xử lí hoàn tác
                     string str = "DELETE DBO.MONHOC WHERE MAMH = '" + edtMaMH.Text.Trim() + "'";
                     undoList.Push(str);
 
-                    //sau khi them thanh cong enable het button
+                    //Bật hết button lên
                     toggleButton();
                     isAdd = false;
                 }
             }
-            //Neu dang sưa
+            //Nếu đang sửa
             else
             {
 
                 //lấy dữ liệu trước khi sửa
-
                 string str = "UPDATE DBO.MONHOC " +
                                 "SET " +
-                                "MAMH = '" + edtMaMH.Text.Trim() + "'," +
-                                "TENMH = '" + edtTenMH.Text.Trim() + "'";
+                                "TENMH = '" + edtTenMH.Text.Trim() + "' WHERE " +
+                                "MAMH = '" + edtMaMH.Text.Trim() + "', ";
+
                 DialogResult dr = MessageBox.Show("Bạn có muốn sửa dữ liệu ?", "Thông báo",
                          MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
@@ -353,7 +343,7 @@ namespace TN
                 return;
             }
 
-            DialogResult dr = MessageBox.Show("Bạn có chắc muốn xóa ?", "Thông báo",
+            DialogResult dr = MessageBox.Show("Bạn có chắc muốn xóa môn học " + ((DataRowView)this.bdsMonHoc.Current).Row["TENMH"].ToString() + " ?", "Thông báo",
                       MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (dr == DialogResult.OK)
@@ -363,7 +353,7 @@ namespace TN
                     string undo = string.Format("INSERT INTO DBO.MONHOC( MAMH,TENMH)" +
                     "VALUES('{0}','{1}')", edtMaMH.Text.Trim(), edtTenMH.Text.Trim());
                     undoList.Push(undo);
-                   
+
 
                     bdsMonHoc.RemoveCurrent();
                     this.monHocTableAdapterManager.UpdateAll(this.DS);
@@ -385,6 +375,14 @@ namespace TN
         //Sử lí hoàn tác sau
         private void btnHoanTac_ItemClick(object sender, ItemClickEventArgs e)
         {
+            //Nếu ko có phục hồi, thêm, xóa, sữa -> disble button hoàn tác
+            if (undoList.Count == 0)
+            {
+                MessageBox.Show("Không còn thao tác hoàn tác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnHoanTac.Enabled = false;
+                return;
+
+            }
 
             try
             {
@@ -399,14 +397,7 @@ namespace TN
                     return;
                 }
 
-                //Nếu ko có phục hồi, thêm, xóa, sữa -> disble button hoàn tác
-                if (undoList.Count == 0)
-                {
-                    MessageBox.Show("Không còn thao tác hoàn tác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    btnHoanTac.Enabled = false;
-                    return;
 
-                }
                 //Hoàn tác dữ liệu
                 bdsMonHoc.CancelEdit();
                 string str = undoList.Pop();
@@ -430,7 +421,6 @@ namespace TN
             {
 
                 this.monHocTableAdapter.Fill(this.DS.MONHOC);
-                this.gcMonHoc.Enabled = true;
                 MessageBox.Show("Làm mới thành công", "Thông báo", MessageBoxButtons.OK);
             }
             catch (Exception ex)

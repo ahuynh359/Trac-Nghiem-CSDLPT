@@ -287,6 +287,19 @@ namespace TN
             this.ribbonPageGroup3.ItemLinks.Add(this.btnThoat);
             this.ribbonPageGroup3.Name = "ribbonPageGroup3";
             this.ribbonPageGroup3.Text = "QUẢN LÍ TÀI KHOẢN";
+           
+            // 
+            // ribbonPageGroup2
+            // 
+            this.ribbonPageGroup2.Name = "ribbonPageGroup2";
+            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
+            
+            // 
+            // ribbonPageGroup3
+            // 
+            this.ribbonPageGroup3.ItemLinks.Add(this.btnMainDangNhap);
+            this.ribbonPageGroup3.Name = "ribbonPageGroup3";
+            
             // 
             // ribbonStatusBar
             // 
