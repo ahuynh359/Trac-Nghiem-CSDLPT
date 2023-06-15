@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
-
+using TN.SubForm;
 namespace TN
 {
     static class Program
@@ -22,6 +22,10 @@ namespace TN
         public static string username = "";
         public static string mLogin = "";
         public static string password = "";
+        public static string mLoginSV = "SV";
+        public static string passwordSV = "123";
+        public static string maSV = "";
+
 
         public static string database = "TN";
         public static string remoteLogin = "HTKN";
@@ -34,7 +38,13 @@ namespace TN
 
         //Lưu Db phân mảnh khi đăng nhập
         public static BindingSource bsDanhSachPhanManh = new BindingSource();
-        public static frmMain frmChinh;
+        public static frmMain frmChinh = null;
+        public static frmMainSinhVien frmMainSinhVien = null;
+        public static frmDangNhap frmDangNhap = null;
+        public static frmThi frmThi = null;
+        public static frmKQThi frmKQThi = null;
+        public static subFrmMonHoc subFrmMonHoc;
+        public static subFrmGiangVien subFrmGiangVien;
 
         public static int ketNoi()
         {
@@ -47,7 +57,7 @@ namespace TN
                 con.Close();
             try
             {
-               
+
                 conStr = "Data Source=" + serverName + ";Initial Catalog=" + database + ";User ID=" +
                          mLogin + ";password=" + password;
                 con.ConnectionString = conStr;
@@ -85,27 +95,34 @@ namespace TN
             }
         }
 
-        public static int execSqlNonQuery(string str)
+        public static DataTable execSqlDataTable(string cmd)
         {
-            SqlCommand sqlCommand = new SqlCommand(str, con);
-            sqlCommand.CommandType = CommandType.Text;
-            sqlCommand.CommandTimeout = 600; //10 phut
+            DataTable dt = new DataTable();
+            if (Program.con.State == ConnectionState.Closed) Program.con.Open();
+            SqlDataAdapter da = new SqlDataAdapter(cmd, con);
+            da.Fill(dt);
+            con.Close();
+            return dt;
+        }
 
+        public static int execSqlNonQuery(string strlenh)
+        {
+            SqlCommand Sqlcmd = new SqlCommand(strlenh, con);
+            Sqlcmd.CommandType = CommandType.Text;
+            Sqlcmd.CommandTimeout = 600;// 10 phut
             if (con.State == ConnectionState.Closed) con.Open();
             try
             {
-                sqlCommand.ExecuteNonQuery();
-                con.Close();
+                Sqlcmd.ExecuteNonQuery(); con.Close();
                 return 0;
             }
-            catch (SqlException e)
+            catch (SqlException ex)
             {
-                if (e.Message.Contains("Error converting data type varchar to int")) MessageBox.Show("Bạn format cell lại cột \"Ngày thi\"qua kiểu Number hoặc mở file excel.");
-                else
-                    MessageBox.Show(e.Message);
+                if (ex.Message.Contains("Error converting data type varchar to int"))
+                    MessageBox.Show("Bạn format Cell lại cột \"Ngày Thi\" qua kiểu Number hoặc mở File Excel.");
+                else MessageBox.Show(ex.Message);
                 con.Close();
-                return e.State; //Trang thai gui loi tu RAISEERROR trong SQL Server qua
-
+                return ex.State; //return 1
 
             }
         }
@@ -116,11 +133,11 @@ namespace TN
         [STAThread]
         static void Main()
         {
-            
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            frmChinh = new frmMain();
-            Application.Run(frmChinh);
+            frmDangNhap = new frmDangNhap();
+            Application.Run(frmDangNhap);
         }
     }
 }

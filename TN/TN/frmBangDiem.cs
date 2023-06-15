@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraBars;
+﻿using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,11 +11,13 @@ using System.Windows.Forms;
 
 namespace TN
 {
-    public partial class frmSinhVien : DevExpress.XtraEditors.XtraForm
+    public partial class frmBangDiem : DevExpress.XtraEditors.XtraForm
     {
-        public frmSinhVien()
+        public frmBangDiem()
         {
             InitializeComponent();
         }
+
+        
     }
 }

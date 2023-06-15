@@ -97,7 +97,7 @@ namespace TN
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(417, 26);
             this.txtTenDangNhap.TabIndex = 10;
-            this.txtTenDangNhap.Text = "TH234";
+            this.txtTenDangNhap.Text = "001";
             // 
             // txtMatKhau
             // 
@@ -105,7 +105,7 @@ namespace TN
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(417, 26);
             this.txtMatKhau.TabIndex = 11;
-            this.txtMatKhau.Text = "456";
+            this.txtMatKhau.Text = "123";
             this.txtMatKhau.UseSystemPasswordChar = true;
             // 
             // btnDangNhap
@@ -132,22 +132,22 @@ namespace TN
             // 
             this.rbtnSinhVien.AutoSize = true;
             this.rbtnSinhVien.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.rbtnSinhVien.Checked = true;
             this.rbtnSinhVien.Location = new System.Drawing.Point(194, 33);
             this.rbtnSinhVien.Name = "rbtnSinhVien";
             this.rbtnSinhVien.Size = new System.Drawing.Size(102, 24);
             this.rbtnSinhVien.TabIndex = 14;
+            this.rbtnSinhVien.TabStop = true;
             this.rbtnSinhVien.Text = "Sinh Viên";
             this.rbtnSinhVien.UseVisualStyleBackColor = true;
             // 
             // rbtnGiangVien
             // 
             this.rbtnGiangVien.AutoSize = true;
-            this.rbtnGiangVien.Checked = true;
             this.rbtnGiangVien.Location = new System.Drawing.Point(22, 33);
             this.rbtnGiangVien.Name = "rbtnGiangVien";
             this.rbtnGiangVien.Size = new System.Drawing.Size(113, 24);
             this.rbtnGiangVien.TabIndex = 15;
-            this.rbtnGiangVien.TabStop = true;
             this.rbtnGiangVien.Text = "Giảng Viên";
             this.rbtnGiangVien.UseVisualStyleBackColor = true;
             // 
@@ -190,6 +190,7 @@ namespace TN
             this.Controls.Add(this.labelControl2);
             this.Controls.Add(this.labelControl1);
             this.Name = "frmDangNhap";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng Nhập";
             this.Load += new System.EventHandler(this.frmDangNhap_Load);
             this.groupBox1.ResumeLayout(false);

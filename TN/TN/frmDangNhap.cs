@@ -81,15 +81,23 @@ namespace TN
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            if (txtTenDangNhap.Text.Trim() == "" || txtTenDangNhap.Text.Trim() == "")
+            if (txtTenDangNhap.Text.Trim() == "" || txtMatKhau.Text.Trim() == "")
             {
                 MessageBox.Show("Login name và mật khẩu không được để trống", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-
-            Program.mLogin = txtTenDangNhap.Text;
-            Program.password = txtMatKhau.Text;
+            if (rbtnGiangVien.Checked)
+            {
+                Program.mLogin = txtTenDangNhap.Text;
+                Program.password = txtMatKhau.Text;
+            } else if (rbtnSinhVien.Checked)
+            {
+                Program.maSV = txtTenDangNhap.Text;
+                Program.mLogin = Program.mLoginSV;
+                Program.password = Program.passwordSV;
+                
+            }
 
             if (Program.ketNoi() == 0) return;
 
@@ -98,60 +106,70 @@ namespace TN
             Program.passwordDN = Program.password;
             string str = "";
             if (rbtnSinhVien.Checked)
-                str = "EXEC sp_DangNhapSinhVien '" + Program.mLogin + "'";
+                str = "EXEC sp_DangNhapSinhVien '" + Program.maSV + "'," + txtMatKhau.Text;
             else if (rbtnGiangVien.Checked)
                 str = "EXEC sp_DangNhapGiangVien '" + Program.mLogin + "'";
 
-            Program.myReader = Program.execSqlDataReader(str);
-            if (Program.myReader == null) return;
-            Program.myReader.Read();
+            try
+            {
+                Program.myReader = Program.execSqlDataReader(str);
+                if (Program.myReader == null) return;
+                Program.myReader.Read();
 
-            Program.username = Program.myReader.GetString(0); //Lay username
+                Program.username = Program.myReader.GetString(0); //Lay username
+
+            
+            
             if (Convert.IsDBNull(Program.username))
             {
                 MessageBox.Show("Login nhập vào không có quyền\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-
-            if (rbtnSinhVien.Checked && Program.myReader.GetString(2).Trim().Equals("GIANGVIEN"))
-            {
-                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền GIẢNG VIÊN \nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else if (rbtnSinhVien.Checked && Program.myReader.GetString(2).Trim().Equals("TRUONG"))
-            {
-                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền TRUONG\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else if (rbtnSinhVien.Checked && Program.myReader.GetString(2).Trim().Equals("COSO"))
-            {
-                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền COSO\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else if (rbtnGiangVien.Checked && Program.myReader.GetString(2).Trim().Equals("SINHVIEN"))
-            {
-                MessageBox.Show("Bạn đăng nhập vào tài khoản quyền SINH VIÊN\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            
-
             Program.mHoTen = Program.myReader.GetString(1);
             Program.mGroup = Program.myReader.GetString(2);
             Program.myReader.Close();
             Program.con.Close();
-            Program.frmChinh.siMaNv.Caption = "Mã User: " + Program.username;
-            Program.frmChinh.siHoTen.Caption = "Họ Tên: " + Program.mHoTen;
-            Program.frmChinh.siNhom.Caption = "Nhóm: " + Program.mGroup;
-            Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Login nhập vào không có quyền\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            Program.frmChinh.btnMainDangNhap.Enabled = false;
-            Program.frmChinh.btnTaoTaiKhoan.Enabled = true;
-            Program.frmChinh.btnDangXuat.Enabled = true;
-            Program.frmChinh.pageBaoCao.Visible = true;
-            Program.frmChinh.pageNhapXuat.Visible = true;
+            if (Program.mGroup.Equals("SINHVIEN"))
+            {
+                this.Hide();
+                Program.frmMainSinhVien = new frmMainSinhVien();
+                Program.frmMainSinhVien.siMaSV.Caption = "Mã SV: " + Program.username;
+                Program.frmMainSinhVien.siHoTen.Caption = "Mã SV: " + Program.mHoTen;
+                Program.frmMainSinhVien.siNhom.Caption = "Nhóm: SINHVIEN";
+               
+
+                Program.frmMainSinhVien.ShowDialog();
+                Close();
+            }
+            else
+            {
+                this.Hide();
+                Program.frmChinh = new frmMain();
+                Program.frmChinh.siMaNv.Caption = "Mã User: " + Program.username;
+                Program.frmChinh.siHoTen.Caption = "Họ Tên: " + Program.mHoTen;
+                Program.frmChinh.siNhom.Caption = "Nhóm: " + Program.mGroup;
+
+                Program.frmChinh.btnDangNhap.Enabled = false;
+                Program.frmChinh.btnTaoTaiKhoan.Enabled = true;
+                Program.frmChinh.btnDangXuat.Enabled = true;
+                Program.frmChinh.pageThi.Visible = true;
+                Program.frmChinh.pageNhapXuat.Visible = true;
+
+               
+                Program.frmChinh.ShowDialog();
+                Close();
 
 
+
+            }
 
 
 

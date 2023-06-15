@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TN.SubForm;
 
 namespace TN
 {
@@ -15,26 +16,70 @@ namespace TN
     {
         private bool isAdd = false;
         private Stack<string> undoList = new Stack<string>();
+        private int index = -1;
         public frmNhapDe()
         {
             InitializeComponent();
         }
 
-        private void bODEBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        private void frmNhapDe_Load(object sender, EventArgs e)
         {
-            this.Validate();
-            this.bdsBoDe.EndEdit();
-            this.boDeTableAdapterManager.UpdateAll(this.DS);
+
+
+            fill();
+
+            //Trường chỉ được xem dữ liệu nên tắt hết các nút
+            if (Program.mGroup == "TRUONG")
+            {
+                setButtonVisibilityOff();
+            }
+            //Giáo viên và cơ sở có quyền chỉnh sửa
+            else
+            {
+                setButtonVisibilityOn();
+
+                if (Program.mGroup.Equals("GIANGVIEN"))
+                {
+                    bdsBoDe.Filter = "MAGV = '" + Program.username + "'";
+                    btnChonMaGV.Enabled = false;
+                }
+
+                else if (Program.mGroup.Equals("GIANGVIEN"))
+                    btnChonMaGV.Enabled = true;
+            }
+
+            toggleButton();
+
+            cmbDapAn.Properties.Items.Add("A");
+            cmbDapAn.Properties.Items.Add("B");
+            cmbDapAn.Properties.Items.Add("C");
+            cmbDapAn.Properties.Items.Add("D");
+
+
+            cmbTrinhDo.Properties.Items.Add("A");
+            cmbTrinhDo.Properties.Items.Add("B");
+            cmbTrinhDo.Properties.Items.Add("C");
 
         }
 
-        private void frmNhapDe_Load(object sender, EventArgs e)
+        private void setButtonVisibilityOn()
         {
-            // TODO: This line of code loads data into the 'DS.CT_BAITHI' table. You can move, or remove it, as needed.
-            this.ctBaiThiTableAdapter.Fill(this.DS.CT_BAITHI);
-            // TODO: This line of code loads data into the 'tNDataSet.BODE' table. You can move, or remove it, as needed.
-            this.boDeTableAdapter.Fill(this.DS.BODE);
+            btnThem.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+            btnXoa.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+            btnGhi.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+            btnHoanTac.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+            btnLamMoi.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+            btnThoat.Visibility = DevExpress.XtraBars.BarItemVisibility.Always;
+        }
 
+        private void setButtonVisibilityOff()
+        {
+            btnThem.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            btnXoa.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            btnGhi.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            btnHoanTac.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            btnLamMoi.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            btnThoat.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
         }
         private void toggleButton(bool btnThemState = true, bool btnXoaState = true, bool btnGhiState = true, bool btnHoanTacState = true, bool btnLamMoiState = true, bool btnThoatState = true)
         {
@@ -54,9 +99,18 @@ namespace TN
             btnThoat.Enabled = btnThoatState;
         }
 
+        private void fill()
+        {
+            this.boDeTableAdapter.Connection.ConnectionString = Program.conStr;
+            this.boDeTableAdapter.Fill(this.DS.BODE);
+
+            this.CTBaiThiTableAdapter.Connection.ConnectionString = Program.conStr;
+            this.CTBaiThiTableAdapter.Fill(this.DS.CT_BAITHI);
+
+        }
+
         private void toggleInput(bool state)
         {
-            cmbMaMonHoc.Enabled = state;
             cmbTrinhDo.Enabled = state;
             edtNoiDung.Enabled = state;
             edtA.Enabled = state;
@@ -64,11 +118,29 @@ namespace TN
             edtC.Enabled = state;
             edtD.Enabled = state;
             cmbDapAn.Enabled = state;
-            edtMaGiaoVien.Enabled = state;
-
         }
         private int checkValidData()
         {
+            if (edtCauHoi.Text.Trim().Equals(""))
+            {
+                MessageBox.Show("Mã câu hỏi không được để trống\nVui lòng nhập dữ liệu ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                edtCauHoi.Focus();
+                return 0;
+            }
+
+            if (edtMaMH.Text.Trim().Equals(""))
+            {
+                MessageBox.Show("Mã môn học không được để trống\nVui lòng nhập dữ liệu ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                edtMaMH.Focus();
+                return 0;
+            }
+
+            if (cmbTrinhDo.Text.Trim().Equals(""))
+            {
+                MessageBox.Show("Trình độ không được để trống\nVui lòng chọn dữ liệu ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbTrinhDo.Focus();
+                return 0;
+            }
 
             if (edtNoiDung.Text.Trim().Equals(""))
             {
@@ -87,20 +159,34 @@ namespace TN
             if (edtB.Text.Trim().Equals(""))
             {
                 MessageBox.Show("Đáp án B không được để trống\nVui lòng nhập dữ liệu ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                edtA.Focus();
+                edtB.Focus();
                 return 0;
             }
 
             if (edtC.Text.Trim().Equals(""))
             {
                 MessageBox.Show("Đáp án C không được để trống\nVui lòng nhập dữ liệu ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                edtA.Focus();
+                edtC.Focus();
                 return 0;
             }
             if (edtD.Text.Trim().Equals(""))
             {
-                MessageBox.Show("Đáp án B không được để trống\nVui lòng nhập dữ liệu ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                edtA.Focus();
+                MessageBox.Show("Đáp án D không được để trống\nVui lòng nhập dữ liệu ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                edtD.Focus();
+                return 0;
+            }
+
+            if (cmbDapAn.Text.Trim().Equals(""))
+            {
+                MessageBox.Show("Đáp án không được để trống\nVui lòng chọn dữ liệu ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbDapAn.Focus();
+                return 0;
+            }
+
+            if (!Program.mGroup.Equals("GIANGVIEN") && edtMaGiaoVien.Text.Trim().Equals(""))
+            {
+                MessageBox.Show("Mã giáo viên không được để trống\nVui lòng chọn dữ liệu ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                edtMaGiaoVien.Focus();
                 return 0;
             }
 
@@ -139,23 +225,28 @@ namespace TN
         {
             try
             {
-                bdsBoDe.EndEdit();
+                bdsBoDe.EndEdit(); //Kết thúc hiệu chỉnh gửi dữ liệu về DS
+                bdsBoDe.ResetCurrentItem(); //Refresh giá trị của nó
                 this.boDeTableAdapter.Update(this.DS.BODE);
                 gcBoDe.Enabled = true;
+                fill();
+               
             }
             catch (Exception e)
             {
                 MessageBox.Show("Lỗi ghi bộ đề vào DB\n\n" + e.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
-            MessageBox.Show("Thêm thành công", "Thông báo",
-                      MessageBoxButtons.OKCancel);
+
             return 1;
         }
         private void btnThem_ItemClick(object sender, ItemClickEventArgs e)
         {
             try
             {
+                //Nếu đang trỏ vào dữ liệu ko cho sửa thì xóa dữ liệu edt
+                toggleInput(true);
+
                 //Phục vụ cho btn thoát, nếu đang nhập thì hủy thêm
                 isAdd = true;
 
@@ -169,7 +260,14 @@ namespace TN
                 bdsBoDe.AddNew();
 
                 //Trỏ con trỏ
+                edtCauHoi.Enabled = true;
                 edtCauHoi.Focus();
+
+                //Lấy vị trí con trỏ hiện tại
+                index = bdsBoDe.Position;
+
+
+
 
             }
             catch (Exception ex)
@@ -182,17 +280,12 @@ namespace TN
 
         private void btnXoa_ItemClick(object sender, ItemClickEventArgs e)
         {
+            index = bdsBoDe.Position;
             if (bdsBoDe.Count == 0)
             {
                 MessageBox.Show("Không còn dữ liệu để xóa", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnXoa.Enabled = false;
                 return;
-            }
-
-
-            if (undoList.Count > 0)
-            {
-                btnHoanTac.Enabled = true;
             }
 
             if (bdsCTBaiThi.Count > 0)
@@ -201,20 +294,39 @@ namespace TN
                 return;
             }
 
-            DialogResult dr = MessageBox.Show("Bạn có muốn xóa dữ liệu ?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            DialogResult dr = MessageBox.Show("Bạn có muốn xóa câu hỏi " + ((DataRowView)this.bdsBoDe.Current).Row["CAUHOI"].ToString()
+               + "?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             if (dr == DialogResult.OK)
             {
                 try
                 {
+                    index = bdsBoDe.Position;
+                    //Lấy dữ liệu trước khi xóa
+                    string undo = "INSERT INTO DBO.BODE( CAUHOI,MAMH,TRINHDO,NOIDUNG,A,B,C,D,DAP_AN,MAGV) " +
+                    "VALUES( '" + edtCauHoi.Text.Trim() + "', '" + edtMaMH.Text.Trim() + "', '" + cmbTrinhDo.Text.Trim()
+                    + "', N'" + edtNoiDung.Text.Trim() + "', N'" + edtA.Text.Trim() + "', N'" + edtB.Text.Trim() + "', N'" + edtC.Text.Trim() + "', N'" + edtD.Text.Trim() + "', '" + cmbDapAn.Text.Trim() + "', '" + edtMaGiaoVien.Text.Trim() + "')";
+
+                    undoList.Push(undo);
+
                     bdsBoDe.RemoveCurrent();
                     this.boDeTableAdapter.Update(this.DS.BODE);
+                    fill();
+
+                    bdsBoDe.Position = index;
+
                     MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }
                 catch (Exception ex)
                 {
+                    undoList.Pop();
                     MessageBox.Show("Lỗi khi xóa dữ liệu\n\n" + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+
+            if (undoList.Count > 0)
+            {
+                btnHoanTac.Enabled = true;
             }
 
 
@@ -226,24 +338,70 @@ namespace TN
             int check = checkValidData();
             if (check == 0) return;
 
-
+            //Nếu đang thêm
             if (isAdd)
             {
                 check = checkDuplicateData();
                 if (check == 0) return;
+
                 DialogResult dr = MessageBox.Show("Bạn có chắc muốn ghi dữ liệu vào CSDL ?", "Thông báo",
                            MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dr == DialogResult.OK)
                 {
+
+                    //Lấy dữ liệu để cho vào xử lí hoàn tác
+                    string str = "DELETE DBO.BODE WHERE CAUHOI = " + edtCauHoi.Text.Trim();
+
                     check = wirteDataToDB();
                     if (check == 0) return;
+
+
+                    undoList.Push(str);
+
+
                     //sau khi them thanh cong enable het button
+                    edtCauHoi.Enabled = false;
                     toggleButton();
                     isAdd = false;
+
+                    MessageBox.Show("Thêm thành công", "Thông báo",
+                     MessageBoxButtons.OKCancel);
+
+                    bdsBoDe.Position = index;
+
+
                 }
             }
+            //Nếu đang sửa
             else
             {
+                string cauHoi = ((DataRowView)this.bdsBoDe.Current).Row["CAUHOI"].ToString().Trim();
+                string maMH = ((DataRowView)this.bdsBoDe.Current).Row["MAMH"].ToString().Trim();
+                string trinhDo = ((DataRowView)this.bdsBoDe.Current).Row["TRINHDO"].ToString().Trim();
+                string noiDung = ((DataRowView)this.bdsBoDe.Current).Row["NOIDUNG"].ToString().Trim();
+                string a = ((DataRowView)this.bdsBoDe.Current).Row["A"].ToString().Trim();
+                string b = ((DataRowView)this.bdsBoDe.Current).Row["B"].ToString().Trim();
+                string c = ((DataRowView)this.bdsBoDe.Current).Row["C"].ToString().Trim();
+                string d = ((DataRowView)this.bdsBoDe.Current).Row["D"].ToString().Trim();
+                string dapAn = ((DataRowView)this.bdsBoDe.Current).Row["DAP_AN"].ToString().Trim();
+                string maGV = ((DataRowView)this.bdsBoDe.Current).Row["MAGV"].ToString().Trim();
+
+
+                //lấy dữ liệu trước khi sửa
+                string str = "UPDATE DBO.BODE " +
+                                "SET " +
+                                "MAMH = '" + maMH +
+                                "', TRINHDO = '" + trinhDo +
+                                "', NOIDUNG = N'" + noiDung +
+                                "', A = N'" + a +
+                                "', B = N'" + b +
+                                "', C = N'" + c +
+                                "', D = N'" + d +
+                                "', DAP_AN = '" + dapAn +
+                                "', MAGV = '" + maGV +
+                                "' WHERE " +
+                                "CAUHOI = " + cauHoi;
+
                 DialogResult dr = MessageBox.Show("Bạn có muốn sửa dữ liệu ?", "Thông báo",
                         MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dr == DialogResult.OK)
@@ -251,15 +409,31 @@ namespace TN
 
                     check = wirteDataToDB();
                     if (check == 0) return;
+                    undoList.Push(str);
+
+                    MessageBox.Show("Sửa thành công", "Thông báo",
+                    MessageBoxButtons.OKCancel);
+                    bdsBoDe.Position = bdsBoDe.Find("CAUHOI", cauHoi);
                 }
                 //Nếu đã có khóa ngoại thì disable -> enable nó lên
                 toggleInput(true);
+
+
             }
+
+
+            if (undoList.Count > 0)
+            {
+                btnHoanTac.Enabled = true;
+            }
+
+
+
         }
 
         private void gvBoDe_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
-            if (bdsCTBaiThi.Count > 0)
+            if (bdsBoDe.Count > 0)
             {
                 toggleInput(false);
                 btnHoanTac.Enabled = false;
@@ -276,7 +450,8 @@ namespace TN
             try
             {
 
-                this.boDeTableAdapter.Fill(this.DS.BODE);
+                fill();
+
                 MessageBox.Show("Làm mới thành công", "Thông báo", MessageBoxButtons.OK);
             }
             catch (Exception ex)
@@ -295,8 +470,11 @@ namespace TN
                 if (dr == DialogResult.OK)
                 {
                     bdsBoDe.RemoveCurrent();
-                    this.boDeTableAdapter.Fill(this.DS.BODE);
+
+                    fill();
+
                     gcBoDe.Enabled = true;
+                    edtCauHoi.Enabled = false;
                     toggleButton();
                     isAdd = false;
                 }
@@ -323,7 +501,7 @@ namespace TN
                 if (isAdd)
                 {
                     bdsBoDe.RemoveCurrent();
-                    this.boDeTableAdapter.Fill(this.DS.BODE);
+                    fill();
                     gcBoDe.Enabled = true;
                     toggleButton();
                     isAdd = false;
@@ -331,19 +509,74 @@ namespace TN
                 }
 
 
-                //Hoàn tác dữ liệu
-                bdsBoDe.CancelEdit();
-                string str = undoList.Pop();
-                MessageBox.Show(str);
-                int result = Program.execSqlNonQuery(str);
-                if (result == 0) MessageBox.Show("Lôi khi hoàn tác");
-                this.boDeTableAdapter.Fill(this.DS.BODE);
+
+
+                DialogResult dr = MessageBox.Show("Bạn có muốn hoàn tác " + undoList.Peek() + " ?", "Thông Báo", MessageBoxButtons.OKCancel);
+                if (dr == DialogResult.OK)
+                {
+                    //Hoàn tác dữ liệu
+                    bdsBoDe.CancelEdit();
+                    string str = undoList.Pop();
+                    int result = Program.execSqlNonQuery(str);
+                    if (result != 0)
+                        MessageBox.Show("Hoàn tác thất bại");
+                    else MessageBox.Show("Hoàn tác thành công");
+                    fill();
+                    bdsBoDe.Position = index;
+
+                }
+
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi hoàn tác dữ liệu" + ex.Message, "Thông báo", MessageBoxButtons.OK);
             }
+        }
+
+
+
+        private void btnMaMH_Click(object sender, EventArgs e)
+        {
+
+            Program.subFrmMonHoc = new subFrmMonHoc();
+            Program.subFrmMonHoc.ShowDialog();
+            edtMaMH.Text = Program.subFrmMonHoc.maMH;
+
+
+        }
+
+        private void bODEBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.bdsBoDe.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.DS);
+
+        }
+
+
+        //Nếu có khóa ngoại ko cho sửa
+        private void gvBoDe_FocusedRowChanged_1(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            edtMaGiaoVien.Enabled = false;
+            if (bdsCTBaiThi.Count > 0)
+            {
+                toggleInput(false);
+                btnGhi.Enabled = false; //Khong cho sửa
+            }
+            else
+            {
+                toggleInput(true);
+                btnGhi.Enabled = true;
+            }
+        }
+
+        private void btnChonMaGV_Click(object sender, EventArgs e)
+        {
+
+            Program.subFrmGiangVien = new subFrmGiangVien();
+            Program.subFrmGiangVien.ShowDialog();
+            edtMaGiaoVien.Text = Program.subFrmGiangVien.maGV;
         }
     }
 }

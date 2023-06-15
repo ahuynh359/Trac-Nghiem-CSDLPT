@@ -16,14 +16,14 @@ namespace TN
         public frmMain()
         {
             InitializeComponent();
+
+            if (Program.mGroup.Equals("GIANGVIEN"))
+            {
+                btnMonHoc.Visibility = DevExpress.XtraBars.BarItemVisibility.Never; 
+            }
         }
 
-        private void btnMainDangNhap_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            frmDangNhap frmDangNhap = new frmDangNhap();
-            frmDangNhap.Show();
-        }
-
+      
         private void btnThoat_ItemClick(object sender, ItemClickEventArgs e)
         {
             Close();
@@ -31,8 +31,22 @@ namespace TN
 
         private void btnDangXuat_ItemClick(object sender, ItemClickEventArgs e)
         {
-            frmDangNhap frmDangNhap = new frmDangNhap();
-            frmDangNhap.Show();
+
+            DialogResult dr = MessageBox.Show("Bạn có muốn đăng xuất không ?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr == DialogResult.OK)
+            {
+                foreach (Form f in this.MdiChildren)
+                    f.Dispose();
+                Program.mLogin = "";
+                Program.password = "";
+                this.Hide();
+                Program.frmDangNhap  = new frmDangNhap();
+                Program.frmDangNhap.Activate();
+                Program.frmDangNhap.ShowDialog();
+
+            }
+
+
         }
 
         private Form checkExists(Type ftype)
@@ -59,14 +73,14 @@ namespace TN
 
         private void btnKhoaLop_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Form frm = checkExists(typeof(frmKhoaLop));
+          /*  Form frm = checkExists(typeof(frmKhoaLop));
             if (frm != null) frm.Activate();
             else
             {
                 frmKhoaLop f = new frmKhoaLop();
                 f.MdiParent = this;
                 f.Show();
-            }
+            }*/
         }
 
         private void btnNhapDe_ItemClick(object sender, ItemClickEventArgs e)
@@ -83,26 +97,46 @@ namespace TN
 
         private void btnSinhVien_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Form frm = checkExists(typeof(frmSinhVien));
+           /* Form frm = checkExists(typeof(frmSinhVien));
             if (frm != null) frm.Activate();
             else
             {
                 frmSinhVien f = new frmSinhVien();
                 f.MdiParent = this;
                 f.Show();
-            }
+            }*/
         }
 
         private void btnGiaoVien_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Form frm = checkExists(typeof(frmGiaoVien));
+           /* Form frm = checkExists(typeof(frmGiaoVien));
             if (frm != null) frm.Activate();
             else
             {
                 frmGiaoVien f = new frmGiaoVien();
                 f.MdiParent = this;
                 f.Show();
+            }*/
+        }
+
+        private void btnBangDiemMonHoc_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
+
+        private void btnHSThi_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+
+             Form frm = checkExists(typeof(frmThi));
+            if (frm != null) frm.Activate();
+            else
+            {
+                frmThi f = new frmThi();
+                f.MdiParent = this;
+                f.Show();
             }
+
         }
     }
 }

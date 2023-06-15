@@ -306,17 +306,16 @@ namespace TN
             this.edtTenMH.Location = new System.Drawing.Point(180, 174);
             this.edtTenMH.MenuManager = this.barManager1;
             this.edtTenMH.Name = "edtTenMH";
-            this.edtTenMH.Properties.MaxLength = 50;
             this.edtTenMH.Size = new System.Drawing.Size(257, 28);
             this.edtTenMH.TabIndex = 3;
             // 
             // edtMaMH
             // 
             this.edtMaMH.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsMonHoc, "MAMH", true));
+            this.edtMaMH.Enabled = false;
             this.edtMaMH.Location = new System.Drawing.Point(180, 66);
             this.edtMaMH.MenuManager = this.barManager1;
             this.edtMaMH.Name = "edtMaMH";
-            this.edtMaMH.Properties.MaxLength = 5;
             this.edtMaMH.Size = new System.Drawing.Size(257, 28);
             this.edtMaMH.TabIndex = 1;
             // 

@@ -42,6 +42,8 @@
     <Reference Include="DevExpress.XtraGrid.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraScheduler.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,23 +56,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CauHoi.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CauHoi.Designer.cs">
+      <DependentUpon>CauHoi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBangDiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBangDiem.Designer.cs">
+      <DependentUpon>frmBangDiem.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmDangNhap.Designer.cs">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGiaoVien.cs">
+    <Compile Include="frmKQThi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGiaoVien.Designer.cs">
-      <DependentUpon>frmGiaoVien.cs</DependentUpon>
+    <Compile Include="frmKQThi.Designer.cs">
+      <DependentUpon>frmKQThi.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMainSinhVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMainSinhVien.Designer.cs">
+      <DependentUpon>frmMainSinhVien.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMonHoc.cs">
       <SubType>Form</SubType>
@@ -84,36 +104,51 @@
     <Compile Include="frmNhapDe.Designer.cs">
       <DependentUpon>frmNhapDe.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSinhVien.cs">
+    <Compile Include="frmThi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSinhVien.Designer.cs">
-      <DependentUpon>frmSinhVien.cs</DependentUpon>
+    <Compile Include="frmThi.Designer.cs">
+      <DependentUpon>frmThi.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubForm\subFrmGiangVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\subFrmGiangVien.Designer.cs">
+      <DependentUpon>subFrmGiangVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\subFrmMonHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\subFrmMonHoc.Designer.cs">
+      <DependentUpon>subFrmMonHoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TNDataSet.cs">
+      <DependentUpon>TNDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="TNDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TNDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="frmKhoaLop.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmKhoaLop.Designer.cs">
-      <DependentUpon>frmKhoaLop.cs</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="CauHoi.resx">
+      <DependentUpon>CauHoi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBangDiem.resx">
+      <DependentUpon>frmBangDiem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDangNhap.resx">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGiaoVien.resx">
-      <DependentUpon>frmGiaoVien.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmKhoaLop.resx">
-      <DependentUpon>frmKhoaLop.cs</DependentUpon>
+    <EmbeddedResource Include="frmKQThi.resx">
+      <DependentUpon>frmKQThi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMainSinhVien.resx">
+      <DependentUpon>frmMainSinhVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMonHoc.resx">
       <DependentUpon>frmMonHoc.cs</DependentUpon>
@@ -121,8 +156,8 @@
     <EmbeddedResource Include="frmNhapDe.resx">
       <DependentUpon>frmNhapDe.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSinhVien.resx">
-      <DependentUpon>frmSinhVien.cs</DependentUpon>
+    <EmbeddedResource Include="frmThi.resx">
+      <DependentUpon>frmThi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -134,6 +169,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SubForm\subFrmGiangVien.resx">
+      <DependentUpon>subFrmGiangVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\subFrmMonHoc.resx">
+      <DependentUpon>subFrmMonHoc.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
