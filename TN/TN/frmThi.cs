@@ -16,7 +16,6 @@ namespace TN
     {
 
         private List<CauHoi> listCauHoi;
-        private string maLop;
         private int thoiGian;
         private int giay = 1;
         private int soCauThi;
@@ -26,11 +25,7 @@ namespace TN
         public frmThi()
         {
             InitializeComponent();
-
         }
-
-
-
 
         private void btnChon_Click(object sender, EventArgs e)
         {
@@ -43,13 +38,29 @@ namespace TN
 
         private void frmThi_Load(object sender, EventArgs e)
         {
-            DateTime now = new DateTime();
-            dateEdit1.DateTime = now;
 
             if (Program.mGroup == "SINHVIEN")
             {
+                gridControlThi.Visible = false;
                 groupBoxSV.Visible = true;
                 loadInfoSv();
+                colMAGV.Visible = false;
+            }
+            else if (Program.mGroup == "GIANGVIEN")
+            {
+                groupBoxBaiThi.Enabled = false;
+                this.thiTableAdapter.Connection.ConnectionString = Program.conStr;
+                this.thiTableAdapter.FillByMaGV(this.DS.THI, Program.username);
+                if (bdsThi.Count > 0)
+                {
+                    btnThi.Enabled = true;
+
+                }
+                else
+                {
+                    MessageBox.Show("Giảng Viên Chưa Đăng Ký Môn Học Nào", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                    gridControlThi.Enabled = false;
+                }
             }
         }
 
@@ -78,60 +89,67 @@ namespace TN
             }
 
             Program.myReader.Read();
-            edtMaLop.Text = maLop = Program.myReader.GetValue(0).ToString();
+            edtMaLop.Text = Program.myReader.GetValue(0).ToString();
             edtTenLop.Text = Program.myReader.GetValue(1).ToString();
-            maLop = edtMaLop.Text.Trim();
             Program.myReader.Close();
             Program.con.Close();
         }
 
         private void filter()
         {
-
-            string sql = "EXEC sp_LayThongTinThi N'"
-                + edtMaLop.Text.ToString().Trim() + "', N'"
-                + edtMaMH.Text.ToString().Trim() + "', "
-                + sEdtLanThi.Value;
-
+            if (Program.mGroup.Equals("SINHVIEN")) { 
+            ngayThi = dateEdit1.DateTime;
+            string ngay = ngayThi.ToString("yyyy-MM-dd");
+            string sql = "EXEC sp_LayThongTinThi N'" + edtMaMH.Text.Trim() + "', " + sEdtLanThi.Value + ", '" + ngay + "', N'"+edtMaLop.Text +"'";
+            MessageBox.Show(sql);
             try
             {
                 Program.myReader = Program.execSqlDataReader(sql);
                 if (Program.myReader == null)
                 {
-                    edtTrinhDo.Text = "";
-                    edtSoCauThi.Text = "";
-                    edtThoiGian.Text = "";
-                    btnThi.Visible = false;
                     return;
                 }
 
+                bool s = Program.myReader.Read();
+                if (s)
+                {
 
-                Program.myReader.Read();
-
-                edtTrinhDo.Text = Program.myReader.GetString(0);
-                soCauThi = Program.myReader.GetInt16(1);
-                edtSoCauThi.Text = soCauThi.ToString();
-                int thoiGian = Program.myReader.GetInt16(2);
-                edtThoiGian.Text = thoiGian.ToString() + ": 00";
-                 ngayThi = Program.myReader.GetDateTime(3);
-                edtNgayThi.Text = ngayThi.Date.ToShortTimeString();
-                btnThi.Visible = true;
-
+                    btnThi.Visible = true;
+                    edtTrinhDo.Text = Program.myReader.GetValue(0).ToString();
+                    edtSoCauThi.Text = Program.myReader.GetInt16(1).ToString();
+                    soCauThi = int.Parse(edtSoCauThi.Text.ToString());
+                    edtThoiGian.Text = Program.myReader.GetValue(2).ToString();
+                    thoiGian = int.Parse(edtThoiGian.Text.ToString());
+                    edtNgayThi.Text = Program.myReader.GetDateTime(3).ToString();
+                } else
+                {
+                    btnThi.Visible = false;
+                    edtTrinhDo.Text = "";
+                    edtSoCauThi.Text = "";
+                    soCauThi = 0;
+                    edtThoiGian.Text ="";
+                    thoiGian = 0;
+                    edtNgayThi.Text = "";
+                }
+               
                 Program.myReader.Close();
-                Program.con.Close();
-
-
-
             }
+
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi kết nối lấy thông tin thi " + ex.Message, "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Lỗi khi thực hiện truy vấn sp_LayThongTinThi!\n\n" + ex.Message, "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            finally
+            {
+                Program.con.Close();
+            }
 
             }
 
 
         }
-
 
         private void edtMaMH_TextChanged(object sender, EventArgs e)
         {
@@ -149,8 +167,6 @@ namespace TN
         }
 
 
-
-        //Kiem tra thi hay chua
         private int checkDaThi()
         {
 
@@ -161,12 +177,16 @@ namespace TN
             try
             {
                 Program.myReader = Program.execSqlDataReader(sql);
-                if (Program.myReader == null) return 0; //khong co kq tra ve
+                if (Program.myReader == null)
+                {
+                    
+                    return 0;
+                }
 
                 Program.myReader.Read();
                 res = int.Parse(Program.myReader.GetValue(0).ToString());
                 Program.myReader.Close();
-                Program.con.Close();
+                
 
             }
             catch (Exception ex)
@@ -175,7 +195,7 @@ namespace TN
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
-           
+
             if (res == 0)
             {
                 MessageBox.Show("SV đã thi, không được thi nữa ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -186,9 +206,10 @@ namespace TN
             return 1;
         }
 
-        private void loadCauHoi()
+        private int loadCauHoi()
         {
-            string str = "EXEC sp_LayCauHoi '" + edtMaMH.Text + "', '" + edtTrinhDo.Text + "', " + edtSoCauThi.Text;
+
+            string str = "EXEC sp_LayCauHoi N'" + edtMaMH.Text + "', N'" + edtTrinhDo.Text + "', " + soCauThi;
 
             try
             {
@@ -197,13 +218,15 @@ namespace TN
                 if (dt.Rows.Count == 0)
                 {
                     MessageBox.Show("Không thể lấy được đề thi, thiếu đề", "", MessageBoxButtons.OK);
-                    return;
+                    return 0;
                 }
 
-                labelTime.Text = edtThoiGian.ToString() + " : 00";
+                labelTime.Text = edtThoiGian.Text + " : 00";
                 timer1.Start();
 
                 bdsDeThi.DataSource = dt;
+                btnThi.Visible = false;
+                gridControlThi.Visible = false;
 
                 listCauHoi = new List<CauHoi>();
                 for (int i = 0; i < soCauThi; i++)
@@ -230,35 +253,38 @@ namespace TN
                     item.ForeColor = Color.Red;
                     listViewDaChon.Items.Add(item);
 
-
                     flowDeThi.Controls.Add(ch);
-
-
-
-
-
+                    panelThi.Visible = true;
                 }
-                MessageBox.Show(flowDeThi.Controls.Count.ToString());
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi " + ex.Message, "", MessageBoxButtons.OK);
-                return;
+                MessageBox.Show("Lỗi khi lấy đề" + ex.Message, "Thông báo", MessageBoxButtons.OK);
+                return 0;
             }
             finally
             {
+                Program.myReader.Close();
                 Program.con.Close();
             }
+            return 1;
 
 
         }
 
-        //Kiem tra dung ngay thi ko
+
         private int checkNgayThi()
         {
 
             DateTime today = DateTime.Today;
-            return today.CompareTo(ngayThi.Date);
+            string now = today.Date.ToString();
+            now = now.Substring(0, now.IndexOf(" "));
+            string time = dateEdit1.DateTime.ToString();
+            time = time.Substring(0, time.IndexOf(" "));
+            MessageBox.Show(now);
+            MessageBox.Show(time);
+            return now.CompareTo(time);
 
         }
 
@@ -276,13 +302,16 @@ namespace TN
                 check = checkNgayThi();
                 if (check == 0)
                 {
-                    DialogResult dr = MessageBox.Show("Bạn muốn bắt đầu thi đề thi môn " + edtTenMH.Text + "\nThời gian: " + thoiGian.ToString() + "phút\nLần thi: " + sEdtLanThi.ToString() + " ?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    DialogResult dr = MessageBox.Show("Bạn muốn bắt đầu thi đề thi môn " + edtTenMH.Text + "\nThời gian: "
+                        + edtThoiGian.Text +
+                        "phút\nLần thi: " + sEdtLanThi.Text + " ?",
+                        "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                     if (dr == DialogResult.OK)
                     {
-                        timer1.Start();
+
                         groupBoxBaiThi.Enabled = false;
-                        loadCauHoi();
-                        panelThi.Visible = true;
+                        if (loadCauHoi() == 0) return;
+
 
                     }
                 }
@@ -299,13 +328,15 @@ namespace TN
             }
             else
             {
-                DialogResult dr = MessageBox.Show("Bạn muốn bắt đầu thi đề thi môn " + edtTenMH.Text + "\nThời gian: " + thoiGian.ToString() + "phút\nLần thi: " + sEdtLanThi.ToString() + " ?", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                DialogResult dr = MessageBox.Show("Bạn muốn bắt đầu thi đề thi môn " + ((DataRowView)this.bdsThi.Current).Row["TENMH"].ToString() + "\nThời gian: "
+                        + ((DataRowView)this.bdsThi.Current).Row["THOIGIAN"].ToString() +
+                        "phút\nLần thi: " + ((DataRowView)this.bdsThi.Current).Row["LAN"].ToString() + " ?",
+                        "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dr == DialogResult.OK)
                 {
-                    timer1.Start();
-                    groupBoxBaiThi.Enabled = false;
-                    loadCauHoi();
-                    panelThi.Visible = true;
+
+                    if (loadCauHoi() == 0) return;
+
 
                 }
             }
@@ -360,7 +391,7 @@ namespace TN
             }
             if (soCauDung == 0) diem = 0;
             else
-                diem = Math.Round((double)(10 * soCauDung) / soCauThi, 2);
+                diem = (Math.Round((double)(10 * soCauDung) / soCauThi));
 
         }
 
@@ -439,7 +470,7 @@ namespace TN
             finally
             {
                 MessageBox.Show("Ghi điểm bài thi thành công ", "Thông báo", MessageBoxButtons.OK);
-                //Program.con.Close();
+                Program.con.Close();
             }
 
 
@@ -457,6 +488,9 @@ namespace TN
             frmKQThi.thoiGian = edtThoiGian.Text.ToString();
             frmKQThi.maLop = edtMaLop.Text;
             frmKQThi.tenLop = edtTenLop.Text;
+          
+
+
 
             this.Close();
 
@@ -481,7 +515,7 @@ namespace TN
 
         private void btnNop_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Bạn có chắc muốn nộp bài", "", MessageBoxButtons.YesNo);
+            DialogResult dr = MessageBox.Show("Bạn có chắc muốn nộp bài", "Thông báo", MessageBoxButtons.YesNo);
             if (dr == DialogResult.Yes)
             {
                 xuLiNop();
@@ -491,6 +525,31 @@ namespace TN
         private void dateEdit1_EditValueChanged(object sender, EventArgs e)
         {
             filter();
+        }
+
+        private void gvThi_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
+        {
+            if (bdsThi.Count > 0 && Program.mGroup.Equals("GIANGVIEN"))
+            {
+
+                edtSoCauThi.Text = ((DataRowView)this.bdsThi.Current).Row["SOCAUTHI"].ToString();
+                soCauThi = int.Parse(edtSoCauThi.Text.ToString());
+                edtMaMH.Text = ((DataRowView)this.bdsThi.Current).Row["MAMH"].ToString();
+                edtTenMH.Text = ((DataRowView)this.bdsThi.Current).Row["TENMH"].ToString();
+                sEdtLanThi.Value = int.Parse(((DataRowView)this.bdsThi.Current).Row["LAN"].ToString());
+                edtNgayThi.Text = ((DataRowView)this.bdsThi.Current).Row["NGAYTHI"].ToString();
+                edtThoiGian.Text = ((DataRowView)this.bdsThi.Current).Row["THOIGIAN"].ToString();
+                thoiGian = int.Parse(edtThoiGian.Text.ToString());
+                edtTrinhDo.Text = ((DataRowView)this.bdsThi.Current).Row["TRINHDO"].ToString();
+                btnThi.Visible = true;
+
+
+            }
+            else
+            {
+                btnThi.Visible = false;
+            }
+
         }
     }
 }

@@ -91,7 +91,7 @@ namespace TN
             // tENMHLabel
             // 
             tENMHLabel.AutoSize = true;
-            tENMHLabel.Location = new System.Drawing.Point(54, 182);
+            tENMHLabel.Location = new System.Drawing.Point(959, 74);
             tENMHLabel.Name = "tENMHLabel";
             tENMHLabel.Size = new System.Drawing.Size(108, 20);
             tENMHLabel.TabIndex = 2;
@@ -303,10 +303,10 @@ namespace TN
             // edtTenMH
             // 
             this.edtTenMH.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsMonHoc, "TENMH", true));
-            this.edtTenMH.Location = new System.Drawing.Point(180, 174);
+            this.edtTenMH.Location = new System.Drawing.Point(1085, 66);
             this.edtTenMH.MenuManager = this.barManager1;
             this.edtTenMH.Name = "edtTenMH";
-            this.edtTenMH.Size = new System.Drawing.Size(257, 28);
+            this.edtTenMH.Size = new System.Drawing.Size(365, 28);
             this.edtTenMH.TabIndex = 3;
             // 
             // edtMaMH
@@ -316,7 +316,8 @@ namespace TN
             this.edtMaMH.Location = new System.Drawing.Point(180, 66);
             this.edtMaMH.MenuManager = this.barManager1;
             this.edtMaMH.Name = "edtMaMH";
-            this.edtMaMH.Size = new System.Drawing.Size(257, 28);
+            this.edtMaMH.Properties.MaxLength = 5;
+            this.edtMaMH.Size = new System.Drawing.Size(386, 28);
             this.edtMaMH.TabIndex = 1;
             // 
             // bdsBangDiem
@@ -344,7 +345,6 @@ namespace TN
             this.gvMonHoc.GridControl = this.gcMonHoc;
             this.gvMonHoc.HorzScrollStep = 1;
             this.gvMonHoc.Name = "gvMonHoc";
-            this.gvMonHoc.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gvMonHoc_FocusedRowChanged);
             // 
             // colMAMH
             // 

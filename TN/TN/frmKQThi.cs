@@ -43,20 +43,20 @@ namespace TN
             lbTongDiem.Text = "Tổng Điểm " + diem;
 
            
-            if (Program.mGroup == "SINHVIEN")
+            if (Program.mGroup.Equals("SINHVIEN"))
             {
                 gbSV.Visible = true;
                 edtMaSV.Text = Program.maSV;
-                edtMaLop.Text = Program.username;
+                edtHoTen.Text = Program.username;
                 edtMaLop.Text = maLop;
                 edtTenLop.Text = tenLop;
             }
             else
             {
-                gbGiangVien.Visible = false;
-                edtMaUser.Text = "Mã số: " + Program.username; ;
-                edtHoTenGV.Text = "Họ tên: " + Program.mHoTen;
-                edtNhom.Text = "Nhóm: " + Program.mGroup;
+                gbGiangVien.Visible = true;
+                edtMaUser.Text =  Program.username; ;
+                edtHoTenGV.Text = Program.mHoTen;
+                edtNhom.Text =  Program.mGroup;
             }
 
         }

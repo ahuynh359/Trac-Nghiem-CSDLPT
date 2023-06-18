@@ -53,9 +53,10 @@ namespace TN
             this.btnChuanBiThi = new DevExpress.XtraBars.BarButtonItem();
             this.btnCbThi = new DevExpress.XtraBars.BarButtonItem();
             this.btnHSThi = new DevExpress.XtraBars.BarButtonItem();
+            this.btnXemKetQua = new DevExpress.XtraBars.BarButtonItem();
             this.pageNhapXuat = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.pageThi = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.pageBaoCao = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPage3 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -92,13 +93,14 @@ namespace TN
             this.barButtonItem9,
             this.btnChuanBiThi,
             this.btnCbThi,
-            this.btnHSThi});
+            this.btnHSThi,
+            this.btnXemKetQua});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 24;
+            this.ribbon.MaxItemId = 25;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.pageNhapXuat,
-            this.pageThi,
+            this.pageBaoCao,
             this.ribbonPage3});
             this.ribbon.Size = new System.Drawing.Size(1401, 231);
             this.ribbon.StatusBar = this.ribbonStatusBar;
@@ -121,11 +123,11 @@ namespace TN
             // btnTaoTaiKhoan
             // 
             this.btnTaoTaiKhoan.Caption = "TẠO TÀI KHOẢN";
-            this.btnTaoTaiKhoan.Enabled = false;
             this.btnTaoTaiKhoan.Id = 3;
             this.btnTaoTaiKhoan.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnTaoTaiKhoan.ImageOptions.SvgImage")));
             this.btnTaoTaiKhoan.LargeWidth = 100;
             this.btnTaoTaiKhoan.Name = "btnTaoTaiKhoan";
+            this.btnTaoTaiKhoan.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTaoTaiKhoan_ItemClick_1);
             // 
             // btnThoat
             // 
@@ -274,6 +276,15 @@ namespace TN
             this.btnHSThi.Name = "btnHSThi";
             this.btnHSThi.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnHSThi_ItemClick);
             // 
+            // btnXemKetQua
+            // 
+            this.btnXemKetQua.Caption = "XEM KẾT QUẢ";
+            this.btnXemKetQua.Id = 24;
+            this.btnXemKetQua.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnXemKetQua.ImageOptions.SvgImage")));
+            this.btnXemKetQua.LargeWidth = 80;
+            this.btnXemKetQua.Name = "btnXemKetQua";
+            this.btnXemKetQua.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnXemKetQua_ItemClick);
+            // 
             // pageNhapXuat
             // 
             this.pageNhapXuat.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -294,17 +305,18 @@ namespace TN
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
             this.ribbonPageGroup1.Text = "QUẢN LÍ NHẬP XUẤT";
             // 
-            // pageThi
+            // pageBaoCao
             // 
-            this.pageThi.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.pageBaoCao.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroup2});
-            this.pageThi.Name = "pageThi";
-            this.pageThi.Text = "BÁO CÁO";
-            this.pageThi.Visible = false;
+            this.pageBaoCao.Name = "pageBaoCao";
+            this.pageBaoCao.Text = "BÁO CÁO";
+            this.pageBaoCao.Visible = false;
             // 
             // ribbonPageGroup2
             // 
             this.ribbonPageGroup2.ItemLinks.Add(this.btnBangDiemMonHoc);
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnXemKetQua);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "QUẢN LÍ BÀI THI";
             // 
@@ -352,6 +364,7 @@ namespace TN
             this.StatusBar = this.ribbonStatusBar;
             this.Text = "Main";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).EndInit();
@@ -379,7 +392,7 @@ namespace TN
         private DevExpress.XtraBars.BarButtonItem btnKhoaLop;
         private DevExpress.XtraTabbedMdi.XtraTabbedMdiManager xtraTabbedMdiManager1;
         public DevExpress.XtraBars.Ribbon.RibbonPage pageNhapXuat;
-        public DevExpress.XtraBars.Ribbon.RibbonPage pageThi;
+        public DevExpress.XtraBars.Ribbon.RibbonPage pageBaoCao;
         private DevExpress.XtraBars.BarButtonItem btnSinhVien;
         private DevExpress.XtraBars.BarButtonItem btnGiaoVien;
         private DevExpress.XtraBars.BarButtonItem barButtonItem4;
@@ -393,5 +406,6 @@ namespace TN
         private DevExpress.XtraBars.BarButtonItem btnCbThi;
         private DevExpress.XtraBars.PopupMenu popupMenu1;
         private DevExpress.XtraBars.BarButtonItem btnHSThi;
+        private DevExpress.XtraBars.BarButtonItem btnXemKetQua;
     }
 }

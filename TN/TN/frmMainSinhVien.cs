@@ -63,5 +63,17 @@ namespace TN
                 Program.frmThi.Show();
             }
         }
+
+        private void btnKetQuaThi_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Form frm = checkExists(typeof(frmXemKetQuaThi));
+            if (frm != null) frm.Activate();
+            else
+            {
+                frmXemKetQuaThi f = new frmXemKetQuaThi();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
     }
 }

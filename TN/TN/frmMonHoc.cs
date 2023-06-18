@@ -28,10 +28,13 @@ namespace TN
         {
             this.giaoVien_DangKyTableAdapter.Connection.ConnectionString = Program.conStr;
             this.giaoVien_DangKyTableAdapter.Fill(this.DS.GIAOVIEN_DANGKY);
+
             this.boDeTableAdapter.Connection.ConnectionString = Program.conStr;
             this.boDeTableAdapter.Fill(this.DS.BODE);
+
             this.bangDiemTableAdapter.Connection.ConnectionString = Program.conStr;
             this.bangDiemTableAdapter.Fill(this.DS.BANGDIEM);
+
             this.monHocTableAdapter.Connection.ConnectionString = Program.conStr;
             this.monHocTableAdapter.Fill(this.DS.MONHOC);
 
@@ -45,9 +48,10 @@ namespace TN
 
 
         }
-       
+
         private void frmMonHoc_Load(object sender, EventArgs e)
         {
+            DS.EnforceConstraints = false;
             fill();
             //Trường Chỉ được xem dữ liệu nên tắt hết các nút
             if (Program.mGroup == "TRUONG")
@@ -61,12 +65,12 @@ namespace TN
                 setButtonVisibilityOn();
 
             }
-           
+
             toggleButton();
-            
+
         }
 
-        // Khi bào các button chức năng thực hiện
+        // Khi nào các button chức năng thực hiện
         private void toggleButton(bool btnThemStage = true, bool btnXoaStage = true, bool btnGhiStage = true, bool btnHoanTacStage = true, bool btnLamMoiStage = true, bool btnThoatStage = true)
         {
             btnThem.Enabled = btnThemStage;
@@ -85,8 +89,6 @@ namespace TN
             btnThoat.Enabled = btnThoatStage;
         }
 
-
-
         private int checkDuplicateData()
         {
 
@@ -96,11 +98,11 @@ namespace TN
             try
             {
                 Program.myReader = Program.execSqlDataReader(sql);
-                if (Program.myReader == null) return 0; //khong co kq tra ve
+                if (Program.myReader == null) return 0;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thực hiện truy vấn bảng MONHOC!\n\n" + ex.Message, "Thông báo",
+                MessageBox.Show("Lỗi khi thực hiện truy vấn bảng MONHOC!\n" + ex.Message, "Thông báo",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
             }
@@ -124,36 +126,6 @@ namespace TN
             return 1;
         }
 
-        private int checkExistData()
-        {
-
-            string sql = "DECLARE @result int " +
-               "EXEC @result = sp_KiemTraSuaMonHoc '" + edtMaMH.Text.Trim() + "' SELECT 'Res' = @result";
-
-            try
-            {
-                Program.myReader = Program.execSqlDataReader(sql);
-                if (Program.myReader == null) return 0; //khong co kq tra ve
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi thực hiện truy vấn bảng MONHOC!\n\n" + ex.Message, "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return 0;
-            }
-
-            Program.myReader.Read();
-            int res = int.Parse(Program.myReader.GetValue(0).ToString());
-            Program.myReader.Close();
-
-            if (res == 1)
-            {
-                MessageBox.Show("Mã môn học đã tồn tại\nVui lòng nhập dữ liệu khác ", "Thông báo", MessageBoxButtons.OK);
-                edtMaMH.Focus();
-                return 0;
-            }
-            return 1;
-        }
         private int checkValidData()
         {
 
@@ -163,7 +135,7 @@ namespace TN
                 edtMaMH.Focus();
                 return 0;
             }
-         
+
 
             if (edtTenMH.Text.Trim().Equals(""))
             {
@@ -195,16 +167,20 @@ namespace TN
             btnThoat.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
         }
 
+        private void toggleInput(bool state)
+        {
+            edtMaMH.Enabled = state;
+            edtTenMH.Enabled = state;
+        }
         private int wirteDataToDB()
         {
             try
             {
                 bdsMonHoc.EndEdit(); //Kết thúc hiệu chỉnh gửi dữ liệu về DS
                 bdsMonHoc.ResetCurrentItem(); //Refresh giá trị của nó
+                this.monHocTableAdapter.Connection.ConnectionString = Program.conStr;
                 this.monHocTableAdapter.Update(this.DS.MONHOC);
                 gcMonHoc.Enabled = true;
-                fill();
-                
 
             }
             catch (Exception e)
@@ -222,21 +198,20 @@ namespace TN
 
             try
             {
-                //Nếu đang trỏ vào dữ liệu ko cho sửa thì xóa dữ liệu edt
-                edtMaMH.Enabled = true;
-                edtTenMH.Enabled = true;
+                //Nếu đang trỏ vào dữ liệu ko cho sửa thì bật lại
+                toggleInput(true);
                 edtMaMH.Focus();
 
-                //Dang them phuc vu cho btn Thoat
+                //Phục vụ btn thoát
                 isAdd = true;
 
-                //Tat het chi de hoan tac va ghi va thoat
+                //Tắt hết chừa hoàn tác, ghi, thoát
                 toggleButton(false, false, true, true, false, true);
 
-                //Ko cho chinh sua grid view bang
+                //Không sửa grid view
                 gcMonHoc.Enabled = false;
 
-                //Nhay xuong cuoi bang them 1 dong moi
+                //Thêm dòng mới
                 bdsMonHoc.AddNew();
 
                 //Lấy vị trí con trỏ hiện tại
@@ -253,38 +228,36 @@ namespace TN
 
         private void btnGhi_ItemClick(object sender, ItemClickEventArgs e)
         {
-
-            int check;
-
-            check = checkValidData();
-            if (check == 0) return;
+            if (checkValidData() == 0) return;
 
             //Nếu đang thêm
             if (isAdd)
             {
-                check = checkDuplicateData();
-                if (check == 0) return;
-
-                DialogResult dr = MessageBox.Show("Bạn có chắc muốn ghi dữ liệu vào CSDL ?", "Thông báo",
+                if (checkDuplicateData() == 0) return;
+                DialogResult dr = MessageBox.Show("Bạn có chắc muốn ghi môn học có mã " + edtMaMH.Text.Trim() + " vào CSDL ?", "Thông báo",
                            MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
                 if (dr == DialogResult.OK)
                 {
-                    //Lấy dữ liệu để cho vào xử lí hoàn tác, lấy trước writeDataToDB
+                    //Lấy dữ liệu để cho vào xử lí hoàn tác
                     string str = "DELETE DBO.MONHOC WHERE MAMH = '" + edtMaMH.Text.Trim() + "'";
 
-                    check = wirteDataToDB();
-                    if (check == 0) return;
+                    if (wirteDataToDB() == 0) return;
 
                     undoList.Push(str);
 
                     //Bật hết button lên
                     toggleButton();
 
+                    //Không cho sửa mã MH
                     edtMaMH.Enabled = false;
-                    isAdd = false;
-                    MessageBox.Show("Thêm thành công");
 
+                    //Tắt đang thêm
+                    isAdd = false;
+
+                    MessageBox.Show("Thêm thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    //Trỏ con trỏ đến vị trí mới thêm
                     bdsMonHoc.Position = index;
 
                 }
@@ -307,10 +280,10 @@ namespace TN
                 if (dr == DialogResult.OK)
                 {
 
-                    check = wirteDataToDB();
-                    if (check == 0) return;
+                    if (wirteDataToDB() == 0) return;
                     undoList.Push(str);
-                    MessageBox.Show("Sửa thành công");
+                    MessageBox.Show("Sửa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //Đưa con trỏ đến vị trí mới sửa
                     bdsMonHoc.Position = bdsMonHoc.Find("MAMH", maMH);
                 }
             }
@@ -318,6 +291,11 @@ namespace TN
             if (undoList.Count > 0)
             {
                 btnHoanTac.Enabled = true;
+            }
+
+            if (bdsMonHoc.Count > 0)
+            {
+                btnXoa.Enabled = true;
             }
 
         }
@@ -362,21 +340,20 @@ namespace TN
 
                     undoList.Push(undo);
 
+                    //Xóa dòng hiện tại
                     bdsMonHoc.RemoveCurrent();
+                    this.monHocTableAdapter.Connection.ConnectionString = Program.conStr;
                     this.monHocTableAdapter.Update(this.DS.MONHOC);
-                    fill();
 
                     bdsMonHoc.Position = index;
-
                     MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
 
                 }
 
                 catch (Exception ex)
                 {
                     undoList.Pop();
-                    MessageBox.Show("Lỗi khi xóa dữ liệu\n\n" + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Lỗi khi xóa dữ liệu\n" + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -386,18 +363,16 @@ namespace TN
             }
 
 
-
         }
 
         private void btnHoanTac_ItemClick(object sender, ItemClickEventArgs e)
         {
-            
+
             if (undoList.Count == 0)
             {
                 MessageBox.Show("Không còn thao tác hoàn tác", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnHoanTac.Enabled = false;
                 return;
-
             }
 
             try
@@ -407,26 +382,23 @@ namespace TN
                 {
                     bdsMonHoc.RemoveCurrent();
                     fill();
-
                     gcMonHoc.Enabled = true;
                     toggleButton();
                     isAdd = false;
                     return;
                 }
 
-
-
-                DialogResult dr = MessageBox.Show("Bạn có muốn hoàn tác " + undoList.Peek() + " ?", "Thông Báo", MessageBoxButtons.OKCancel);
+                DialogResult dr = MessageBox.Show("Bạn có muốn hoàn tác\n" + undoList.Peek() + " ?", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (dr == DialogResult.OK)
                 {
-                   
-                    bdsMonHoc.CancelEdit(); //Cho con trỏ đến cuối dòng
+                    //Bỏ qua dữ liệu row đang hiệu chỉnh cho con trỏ xuống cuối cùng
+                    bdsMonHoc.CancelEdit();
                     string str = undoList.Pop().ToString();
 
-                    int result = Program.execSqlNonQuery(str);
-                    if (result != 0)
-                        MessageBox.Show("Hoàn tác thất bại");
-                    else MessageBox.Show("Hoàn tác thành công");
+                    if (Program.execSqlNonQuery(str) != 0)
+                        MessageBox.Show("Hoàn tác thất bại", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    else
+                        MessageBox.Show("Hoàn tác thành công", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
                     fill();
 
@@ -446,11 +418,11 @@ namespace TN
             try
             {
                 fill();
-                MessageBox.Show("Làm mới thành công", "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Làm mới thành công", "Thông báo", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi Làm mới" + ex.Message, "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Lỗi Làm mới" + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnThoat_ItemClick(object sender, ItemClickEventArgs e)
@@ -466,7 +438,7 @@ namespace TN
 
                     fill();
                     gcMonHoc.Enabled = true;
-                  
+
                     toggleButton();
                     isAdd = false;
                 }
@@ -476,23 +448,6 @@ namespace TN
             Close();
         }
 
-        
-        //Nếu có khóa ngoại ko cho sửa
-        private void gvMonHoc_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
-        {
 
-            if (bdsBoDe.Count > 0 || bdsBoDe.Count > 0 || bdsBangDiem.Count > 0 || bdsBangDiem.Count > 0)
-            {
-
-                edtTenMH.Enabled = false;
-                btnGhi.Enabled = false; //Khong cho sửa
-            }
-            else
-            {
-
-                edtTenMH.Enabled = true;
-                btnGhi.Enabled = true;
-            }
-        }
     }
 }

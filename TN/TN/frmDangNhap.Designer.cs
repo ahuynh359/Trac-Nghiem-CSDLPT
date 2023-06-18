@@ -34,12 +34,12 @@ namespace TN
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.cmbCoSo = new System.Windows.Forms.ComboBox();
-            this.txtTenDangNhap = new System.Windows.Forms.TextBox();
-            this.txtMatKhau = new System.Windows.Forms.TextBox();
+            this.edtTenDangNhap = new System.Windows.Forms.TextBox();
+            this.edtMatKhau = new System.Windows.Forms.TextBox();
             this.btnDangNhap = new System.Windows.Forms.Button();
             this.btnThoat = new System.Windows.Forms.Button();
-            this.rbtnSinhVien = new System.Windows.Forms.RadioButton();
-            this.rbtnGiangVien = new System.Windows.Forms.RadioButton();
+            this.rbSinhVien = new System.Windows.Forms.RadioButton();
+            this.rbGiangVien = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbHienMK = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
@@ -91,22 +91,22 @@ namespace TN
             this.cmbCoSo.TabIndex = 9;
             this.cmbCoSo.SelectedIndexChanged += new System.EventHandler(this.cmbCoSo_SelectedIndexChanged);
             // 
-            // txtTenDangNhap
+            // edtTenDangNhap
             // 
-            this.txtTenDangNhap.Location = new System.Drawing.Point(248, 287);
-            this.txtTenDangNhap.Name = "txtTenDangNhap";
-            this.txtTenDangNhap.Size = new System.Drawing.Size(417, 26);
-            this.txtTenDangNhap.TabIndex = 10;
-            this.txtTenDangNhap.Text = "001";
+            this.edtTenDangNhap.Location = new System.Drawing.Point(248, 287);
+            this.edtTenDangNhap.Name = "edtTenDangNhap";
+            this.edtTenDangNhap.Size = new System.Drawing.Size(417, 26);
+            this.edtTenDangNhap.TabIndex = 10;
+            this.edtTenDangNhap.Text = "001";
             // 
-            // txtMatKhau
+            // edtMatKhau
             // 
-            this.txtMatKhau.Location = new System.Drawing.Point(248, 352);
-            this.txtMatKhau.Name = "txtMatKhau";
-            this.txtMatKhau.Size = new System.Drawing.Size(417, 26);
-            this.txtMatKhau.TabIndex = 11;
-            this.txtMatKhau.Text = "123";
-            this.txtMatKhau.UseSystemPasswordChar = true;
+            this.edtMatKhau.Location = new System.Drawing.Point(248, 352);
+            this.edtMatKhau.Name = "edtMatKhau";
+            this.edtMatKhau.Size = new System.Drawing.Size(417, 26);
+            this.edtMatKhau.TabIndex = 11;
+            this.edtMatKhau.Text = "123";
+            this.edtMatKhau.UseSystemPasswordChar = true;
             // 
             // btnDangNhap
             // 
@@ -128,33 +128,33 @@ namespace TN
             this.btnThoat.UseVisualStyleBackColor = true;
             this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
-            // rbtnSinhVien
+            // rbSinhVien
             // 
-            this.rbtnSinhVien.AutoSize = true;
-            this.rbtnSinhVien.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.rbtnSinhVien.Checked = true;
-            this.rbtnSinhVien.Location = new System.Drawing.Point(194, 33);
-            this.rbtnSinhVien.Name = "rbtnSinhVien";
-            this.rbtnSinhVien.Size = new System.Drawing.Size(102, 24);
-            this.rbtnSinhVien.TabIndex = 14;
-            this.rbtnSinhVien.TabStop = true;
-            this.rbtnSinhVien.Text = "Sinh Viên";
-            this.rbtnSinhVien.UseVisualStyleBackColor = true;
+            this.rbSinhVien.AutoSize = true;
+            this.rbSinhVien.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.rbSinhVien.Checked = true;
+            this.rbSinhVien.Location = new System.Drawing.Point(194, 33);
+            this.rbSinhVien.Name = "rbSinhVien";
+            this.rbSinhVien.Size = new System.Drawing.Size(102, 24);
+            this.rbSinhVien.TabIndex = 14;
+            this.rbSinhVien.TabStop = true;
+            this.rbSinhVien.Text = "Sinh Viên";
+            this.rbSinhVien.UseVisualStyleBackColor = true;
             // 
-            // rbtnGiangVien
+            // rbGiangVien
             // 
-            this.rbtnGiangVien.AutoSize = true;
-            this.rbtnGiangVien.Location = new System.Drawing.Point(22, 33);
-            this.rbtnGiangVien.Name = "rbtnGiangVien";
-            this.rbtnGiangVien.Size = new System.Drawing.Size(113, 24);
-            this.rbtnGiangVien.TabIndex = 15;
-            this.rbtnGiangVien.Text = "Giảng Viên";
-            this.rbtnGiangVien.UseVisualStyleBackColor = true;
+            this.rbGiangVien.AutoSize = true;
+            this.rbGiangVien.Location = new System.Drawing.Point(22, 33);
+            this.rbGiangVien.Name = "rbGiangVien";
+            this.rbGiangVien.Size = new System.Drawing.Size(113, 24);
+            this.rbGiangVien.TabIndex = 15;
+            this.rbGiangVien.Text = "Giảng Viên";
+            this.rbGiangVien.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.rbtnGiangVien);
-            this.groupBox1.Controls.Add(this.rbtnSinhVien);
+            this.groupBox1.Controls.Add(this.rbGiangVien);
+            this.groupBox1.Controls.Add(this.rbSinhVien);
             this.groupBox1.Location = new System.Drawing.Point(248, 112);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(417, 75);
@@ -182,8 +182,8 @@ namespace TN
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.btnDangNhap);
-            this.Controls.Add(this.txtMatKhau);
-            this.Controls.Add(this.txtTenDangNhap);
+            this.Controls.Add(this.edtMatKhau);
+            this.Controls.Add(this.edtTenDangNhap);
             this.Controls.Add(this.cmbCoSo);
             this.Controls.Add(this.labelControl4);
             this.Controls.Add(this.labelControl3);
@@ -206,13 +206,13 @@ namespace TN
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private System.Windows.Forms.ComboBox cmbCoSo;
-        private System.Windows.Forms.TextBox txtTenDangNhap;
-        private System.Windows.Forms.TextBox txtMatKhau;
+        private System.Windows.Forms.TextBox edtTenDangNhap;
+        private System.Windows.Forms.TextBox edtMatKhau;
         private System.Windows.Forms.Button btnDangNhap;
         private System.Windows.Forms.Button btnThoat;
         private System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.RadioButton rbtnSinhVien;
-        public System.Windows.Forms.RadioButton rbtnGiangVien;
+        public System.Windows.Forms.RadioButton rbSinhVien;
+        public System.Windows.Forms.RadioButton rbGiangVien;
         private System.Windows.Forms.CheckBox cbHienMK;
     }
 }

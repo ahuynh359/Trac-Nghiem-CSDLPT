@@ -69,7 +69,7 @@ namespace TN
             this.gbSV.Controls.Add(this.label1);
             this.gbSV.Location = new System.Drawing.Point(0, 2);
             this.gbSV.Name = "gbSV";
-            this.gbSV.Size = new System.Drawing.Size(405, 133);
+            this.gbSV.Size = new System.Drawing.Size(565, 133);
             this.gbSV.TabIndex = 0;
             this.gbSV.TabStop = false;
             this.gbSV.Text = "Thông Tin Sinh Viên";
@@ -79,34 +79,34 @@ namespace TN
             // 
             this.edtMaLop.Location = new System.Drawing.Point(99, 85);
             this.edtMaLop.Name = "edtMaLop";
-            this.edtMaLop.Size = new System.Drawing.Size(66, 26);
+            this.edtMaLop.Size = new System.Drawing.Size(146, 26);
             this.edtMaLop.TabIndex = 7;
             // 
             // edtTenLop
             // 
-            this.edtTenLop.Location = new System.Drawing.Point(274, 45);
+            this.edtTenLop.Location = new System.Drawing.Point(352, 42);
             this.edtTenLop.Name = "edtTenLop";
-            this.edtTenLop.Size = new System.Drawing.Size(112, 26);
+            this.edtTenLop.Size = new System.Drawing.Size(207, 26);
             this.edtTenLop.TabIndex = 6;
             // 
             // edtHoTen
             // 
-            this.edtHoTen.Location = new System.Drawing.Point(274, 91);
+            this.edtHoTen.Location = new System.Drawing.Point(352, 88);
             this.edtHoTen.Name = "edtHoTen";
-            this.edtHoTen.Size = new System.Drawing.Size(112, 26);
+            this.edtHoTen.Size = new System.Drawing.Size(207, 26);
             this.edtHoTen.TabIndex = 5;
             // 
             // edtMaSV
             // 
             this.edtMaSV.Location = new System.Drawing.Point(96, 45);
             this.edtMaSV.Name = "edtMaSV";
-            this.edtMaSV.Size = new System.Drawing.Size(69, 26);
+            this.edtMaSV.Size = new System.Drawing.Size(149, 26);
             this.edtMaSV.TabIndex = 4;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(187, 91);
+            this.label2.Location = new System.Drawing.Point(265, 88);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 20);
             this.label2.TabIndex = 1;
@@ -115,7 +115,7 @@ namespace TN
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(187, 48);
+            this.label5.Location = new System.Drawing.Point(265, 45);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 20);
             this.label5.TabIndex = 3;
@@ -147,9 +147,9 @@ namespace TN
             this.gbGiangVien.Controls.Add(this.label4);
             this.gbGiangVien.Controls.Add(this.label7);
             this.gbGiangVien.Controls.Add(this.label8);
-            this.gbGiangVien.Location = new System.Drawing.Point(411, 2);
+            this.gbGiangVien.Location = new System.Drawing.Point(571, 2);
             this.gbGiangVien.Name = "gbGiangVien";
-            this.gbGiangVien.Size = new System.Drawing.Size(389, 133);
+            this.gbGiangVien.Size = new System.Drawing.Size(500, 133);
             this.gbGiangVien.TabIndex = 8;
             this.gbGiangVien.TabStop = false;
             this.gbGiangVien.Text = "Thông Tin Giảng Viên";
@@ -157,29 +157,29 @@ namespace TN
             // 
             // edtNhom
             // 
-            this.edtNhom.Location = new System.Drawing.Point(308, 45);
+            this.edtNhom.Location = new System.Drawing.Point(363, 45);
             this.edtNhom.Name = "edtNhom";
-            this.edtNhom.Size = new System.Drawing.Size(70, 26);
+            this.edtNhom.Size = new System.Drawing.Size(127, 26);
             this.edtNhom.TabIndex = 6;
             // 
             // edtHoTenGV
             // 
             this.edtHoTenGV.Location = new System.Drawing.Point(98, 89);
             this.edtHoTenGV.Name = "edtHoTenGV";
-            this.edtHoTenGV.Size = new System.Drawing.Size(126, 26);
+            this.edtHoTenGV.Size = new System.Drawing.Size(188, 26);
             this.edtHoTenGV.TabIndex = 5;
             // 
             // edtMaUser
             // 
             this.edtMaUser.Location = new System.Drawing.Point(98, 45);
             this.edtMaUser.Name = "edtMaUser";
-            this.edtMaUser.Size = new System.Drawing.Size(126, 26);
+            this.edtMaUser.Size = new System.Drawing.Size(188, 26);
             this.edtMaUser.TabIndex = 4;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(251, 45);
+            this.label4.Location = new System.Drawing.Point(306, 45);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 20);
             this.label4.TabIndex = 3;
@@ -206,7 +206,7 @@ namespace TN
             // lbTongSoCau
             // 
             this.lbTongSoCau.AutoSize = true;
-            this.lbTongSoCau.Location = new System.Drawing.Point(69, 158);
+            this.lbTongSoCau.Location = new System.Drawing.Point(201, 170);
             this.lbTongSoCau.Name = "lbTongSoCau";
             this.lbTongSoCau.Size = new System.Drawing.Size(106, 20);
             this.lbTongSoCau.TabIndex = 9;
@@ -215,7 +215,7 @@ namespace TN
             // lbMaMH
             // 
             this.lbMaMH.AutoSize = true;
-            this.lbMaMH.Location = new System.Drawing.Point(335, 158);
+            this.lbMaMH.Location = new System.Drawing.Point(467, 170);
             this.lbMaMH.Name = "lbMaMH";
             this.lbMaMH.Size = new System.Drawing.Size(60, 20);
             this.lbMaMH.TabIndex = 10;
@@ -224,7 +224,7 @@ namespace TN
             // lbThoiGian
             // 
             this.lbThoiGian.AutoSize = true;
-            this.lbThoiGian.Location = new System.Drawing.Point(620, 158);
+            this.lbThoiGian.Location = new System.Drawing.Point(752, 170);
             this.lbThoiGian.Name = "lbThoiGian";
             this.lbThoiGian.Size = new System.Drawing.Size(77, 20);
             this.lbThoiGian.TabIndex = 11;
@@ -233,7 +233,7 @@ namespace TN
             // lbTrinhDo
             // 
             this.lbTrinhDo.AutoSize = true;
-            this.lbTrinhDo.Location = new System.Drawing.Point(69, 220);
+            this.lbTrinhDo.Location = new System.Drawing.Point(201, 232);
             this.lbTrinhDo.Name = "lbTrinhDo";
             this.lbTrinhDo.Size = new System.Drawing.Size(69, 20);
             this.lbTrinhDo.TabIndex = 12;
@@ -242,7 +242,7 @@ namespace TN
             // lbLan
             // 
             this.lbLan.AutoSize = true;
-            this.lbLan.Location = new System.Drawing.Point(335, 220);
+            this.lbLan.Location = new System.Drawing.Point(467, 232);
             this.lbLan.Name = "lbLan";
             this.lbLan.Size = new System.Drawing.Size(40, 20);
             this.lbLan.TabIndex = 13;
@@ -251,7 +251,7 @@ namespace TN
             // lbSoCauDung
             // 
             this.lbSoCauDung.AutoSize = true;
-            this.lbSoCauDung.Location = new System.Drawing.Point(620, 220);
+            this.lbSoCauDung.Location = new System.Drawing.Point(752, 232);
             this.lbSoCauDung.Name = "lbSoCauDung";
             this.lbSoCauDung.Size = new System.Drawing.Size(105, 20);
             this.lbSoCauDung.TabIndex = 14;
@@ -260,7 +260,7 @@ namespace TN
             // lbNgayThi
             // 
             this.lbNgayThi.AutoSize = true;
-            this.lbNgayThi.Location = new System.Drawing.Point(69, 277);
+            this.lbNgayThi.Location = new System.Drawing.Point(201, 289);
             this.lbNgayThi.Name = "lbNgayThi";
             this.lbNgayThi.Size = new System.Drawing.Size(70, 20);
             this.lbNgayThi.TabIndex = 15;
@@ -271,7 +271,7 @@ namespace TN
             this.lbTongDiem.AutoSize = true;
             this.lbTongDiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongDiem.ForeColor = System.Drawing.Color.Red;
-            this.lbTongDiem.Location = new System.Drawing.Point(620, 395);
+            this.lbTongDiem.Location = new System.Drawing.Point(462, 374);
             this.lbTongDiem.Name = "lbTongDiem";
             this.lbTongDiem.Size = new System.Drawing.Size(64, 26);
             this.lbTongDiem.TabIndex = 16;
@@ -281,7 +281,7 @@ namespace TN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1073, 450);
             this.Controls.Add(this.lbTongDiem);
             this.Controls.Add(this.lbNgayThi);
             this.Controls.Add(this.lbSoCauDung);
@@ -316,12 +316,9 @@ namespace TN
         private System.Windows.Forms.TextBox edtMaSV;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox gbGiangVien;
-        private System.Windows.Forms.TextBox edtHoTenGV;
-        private System.Windows.Forms.TextBox edtMaUser;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox edtNhom;
         private System.Windows.Forms.Label lbTongSoCau;
         private System.Windows.Forms.Label lbMaMH;
         private System.Windows.Forms.Label lbThoiGian;
@@ -330,5 +327,8 @@ namespace TN
         private System.Windows.Forms.Label lbSoCauDung;
         private System.Windows.Forms.Label lbNgayThi;
         private System.Windows.Forms.Label lbTongDiem;
+        public System.Windows.Forms.TextBox edtHoTenGV;
+        public System.Windows.Forms.TextBox edtMaUser;
+        public System.Windows.Forms.TextBox edtNhom;
     }
 }

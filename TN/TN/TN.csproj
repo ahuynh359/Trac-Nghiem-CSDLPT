@@ -33,15 +33,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v19.2" />
+    <Reference Include="DevExpress.Charts.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v19.2" />
+    <Reference Include="DevExpress.DataAccess.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v19.2.Core" />
+    <Reference Include="DevExpress.RichEdit.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v19.2.Export, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v19.2" />
+    <Reference Include="DevExpress.Utils.v19.2.UI, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v19.2" />
     <Reference Include="DevExpress.Sparkline.v19.2.Core" />
+    <Reference Include="DevExpress.XtraCharts.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v19.2" />
+    <Reference Include="DevExpress.XtraGauges.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v19.2.Extensions, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraScheduler.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraScheduler.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
@@ -62,10 +76,16 @@
     <Compile Include="CauHoi.Designer.cs">
       <DependentUpon>CauHoi.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmBangDiem.cs">
+    <Compile Include="frmTaoTaiKhoan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmBangDiem.Designer.cs">
+    <Compile Include="frmTaoTaiKhoan.Designer.cs">
+      <DependentUpon>frmTaoTaiKhoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RptForm\frmBangDiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RptForm\frmBangDiem.Designer.cs">
       <DependentUpon>frmBangDiem.cs</DependentUpon>
     </Compile>
     <Compile Include="frmDangNhap.cs">
@@ -110,19 +130,61 @@
     <Compile Include="frmThi.Designer.cs">
       <DependentUpon>frmThi.cs</DependentUpon>
     </Compile>
+    <Compile Include="RptForm\frmXemKetQuaThi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RptForm\frmXemKetQuaThi.Designer.cs">
+      <DependentUpon>frmXemKetQuaThi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RptForm\rptXemBangDiem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RptForm\rptXemBangDiem.Designer.cs">
+      <DependentUpon>rptXemBangDiem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RptForm\rptXemKetQuaThi.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RptForm\rptXemKetQuaThi.Designer.cs">
+      <DependentUpon>rptXemKetQuaThi.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\subFrmGiangVien.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SubForm\subFrmGiangVien.Designer.cs">
       <DependentUpon>subFrmGiangVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm\subFrmGVChuaDki.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\subFrmGVChuaDki.Designer.cs">
+      <DependentUpon>subFrmGVChuaDki.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\subFrmLopDaThi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\subFrmLopDaThi.Designer.cs">
+      <DependentUpon>subFrmLopDaThi.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm\subFrmMonHoc.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SubForm\subFrmMonHoc.Designer.cs">
       <DependentUpon>subFrmMonHoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\subFrmMonHocDaThi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\subFrmMonHocDaThi.Designer.cs">
+      <DependentUpon>subFrmMonHocDaThi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm\subFrmSVDaThi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm\subFrmSVDaThi.Designer.cs">
+      <DependentUpon>subFrmSVDaThi.cs</DependentUpon>
     </Compile>
     <Compile Include="TNDataSet.cs">
       <DependentUpon>TNDataSet.xsd</DependentUpon>
@@ -135,7 +197,10 @@
     <EmbeddedResource Include="CauHoi.resx">
       <DependentUpon>CauHoi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmBangDiem.resx">
+    <EmbeddedResource Include="frmTaoTaiKhoan.resx">
+      <DependentUpon>frmTaoTaiKhoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RptForm\frmBangDiem.resx">
       <DependentUpon>frmBangDiem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDangNhap.resx">
@@ -159,6 +224,9 @@
     <EmbeddedResource Include="frmThi.resx">
       <DependentUpon>frmThi.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="RptForm\frmXemKetQuaThi.resx">
+      <DependentUpon>frmXemKetQuaThi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -169,11 +237,29 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RptForm\rptXemBangDiem.resx">
+      <DependentUpon>rptXemBangDiem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RptForm\rptXemKetQuaThi.resx">
+      <DependentUpon>rptXemKetQuaThi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\subFrmGiangVien.resx">
       <DependentUpon>subFrmGiangVien.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\subFrmGVChuaDki.resx">
+      <DependentUpon>subFrmGVChuaDki.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\subFrmLopDaThi.resx">
+      <DependentUpon>subFrmLopDaThi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm\subFrmMonHoc.resx">
       <DependentUpon>subFrmMonHoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\subFrmMonHocDaThi.resx">
+      <DependentUpon>subFrmMonHocDaThi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm\subFrmSVDaThi.resx">
+      <DependentUpon>subFrmSVDaThi.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">

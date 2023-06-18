@@ -89,7 +89,7 @@ namespace TN
             this.btnKetQuaThi.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnKetQuaThi.ImageOptions.SvgImage")));
             this.btnKetQuaThi.LargeWidth = 80;
             this.btnKetQuaThi.Name = "btnKetQuaThi";
-            this.btnKetQuaThi.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+            this.btnKetQuaThi.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnKetQuaThi_ItemClick);
             // 
             // barButtonItem1
             // 

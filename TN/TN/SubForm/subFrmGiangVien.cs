@@ -37,11 +37,17 @@ namespace TN.SubForm
             this.giaoVienTableAdapter.Connection.ConnectionString = Program.conStr;
             this.giaoVienTableAdapter.Fill(this.tNDataSet.GIAOVIEN);
 
+          
         }
 
         private void btnChon_Click(object sender, EventArgs e)
         {
 
+            if (bdsGiaoVien.Count == 0)
+            {
+                btnChon.Visible = false;
+                return;
+            }
             DataRowView drv = ((DataRowView)(bdsGiaoVien.Current));
             maGV = drv["MAGV"].ToString().Trim();
             ho = drv["HO"].ToString().Trim();
@@ -57,7 +63,7 @@ namespace TN.SubForm
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Dispose();
         }
     }
 }

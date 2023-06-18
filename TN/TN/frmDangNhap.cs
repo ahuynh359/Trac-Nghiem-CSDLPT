@@ -8,61 +8,52 @@ namespace TN
 {
     public partial class frmDangNhap : Form
     {
-        private SqlConnection con = new SqlConnection();
+        private SqlConnection conPublisher = new SqlConnection();
         public frmDangNhap()
         {
             InitializeComponent();
         }
 
-
-        private int connectDB()
+        private void frmDangNhap_Load(object sender, EventArgs e)
         {
-            if (con == null)
-            {
-                Console.WriteLine("con is null");
-                return 0;
-            }
-            if (con.State == ConnectionState.Open)
-                con.Close();
+            if (ketNoiCSDLGoc() == 0) return;
+            layDSPhanManh("SELECT * FROM view_DanhSachPhanManh");
+            cmbCoSo.SelectedIndex = 1;
+            cmbCoSo.SelectedIndex = 0;
+
+        }
+
+        private int ketNoiCSDLGoc()
+        {
+            if (conPublisher != null && conPublisher.State == ConnectionState.Open) conPublisher.Close();
             try
             {
-                con.ConnectionString = Program.conPublisher;
-                con.Open();
+                conPublisher.ConnectionString = Program.conPublisher;
+                conPublisher.Open();
                 return 1;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi kết nối cơ sở dữ liệu.\nBạn xem lại tên Server của Publisher và tên CSDL trong chuỗi kết nối.\n" + ex.Message, "", MessageBoxButtons.OK);
+                MessageBox.Show("Lỗi kết nối cơ sở dữ liệu.\nBạn xem lại tên Server của Publisher và tên CSDL trong chuỗi kết nối.\n", "Thông báo", MessageBoxButtons.OK);
                 return 0;
             }
 
-
         }
 
-        private void getSubcribers(string cmd)
+        private void layDSPhanManh(string sql)
         {
-            if (con == null) return;
-
             DataTable dataTable = new DataTable();
-            if (con.State == ConnectionState.Closed) con.Open();
+            if (conPublisher.State == ConnectionState.Closed) conPublisher.Open();
 
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmd, con);
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sql, conPublisher);
             sqlDataAdapter.Fill(dataTable);
-            con.Close();
+            conPublisher.Close();
 
             Program.bsDanhSachPhanManh.DataSource = dataTable;
+
             cmbCoSo.DataSource = Program.bsDanhSachPhanManh;
             cmbCoSo.DisplayMember = "TENCS";
             cmbCoSo.ValueMember = "TENSERVER";
-        }
-        private void frmDangNhap_Load(object sender, EventArgs e)
-        {
-            if (connectDB() == 0) return;
-            getSubcribers("SELECT * FROM view_DanhSachPhanManh");
-            cmbCoSo.SelectedIndex = 1;
-            cmbCoSo.SelectedIndex = 0;
-
-
         }
 
 
@@ -77,26 +68,32 @@ namespace TN
             }
         }
 
-
-
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            if (txtTenDangNhap.Text.Trim() == "" || txtMatKhau.Text.Trim() == "")
+            if (edtTenDangNhap.Text.Trim().Equals(""))
             {
-                MessageBox.Show("Login name và mật khẩu không được để trống", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Login name không được để trống", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                edtTenDangNhap.Focus();
                 return;
             }
 
-            if (rbtnGiangVien.Checked)
+            if (edtMatKhau.Text.Trim().Equals(""))
             {
-                Program.mLogin = txtTenDangNhap.Text;
-                Program.password = txtMatKhau.Text;
-            } else if (rbtnSinhVien.Checked)
+                MessageBox.Show("Mật khẩu không được để trống", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                edtMatKhau.Focus();
+                return;
+            }
+
+            if (rbGiangVien.Checked)
             {
-                Program.maSV = txtTenDangNhap.Text;
+                Program.mLogin = edtTenDangNhap.Text;
+                Program.password = edtMatKhau.Text;
+            }
+            else if (rbSinhVien.Checked)
+            {
+                Program.maSV = edtTenDangNhap.Text;
                 Program.mLogin = Program.mLoginSV;
                 Program.password = Program.passwordSV;
-                
             }
 
             if (Program.ketNoi() == 0) return;
@@ -104,10 +101,11 @@ namespace TN
             Program.mCoSo = cmbCoSo.SelectedIndex;
             Program.mLoginDN = Program.mLogin;
             Program.passwordDN = Program.password;
+
             string str = "";
-            if (rbtnSinhVien.Checked)
-                str = "EXEC sp_DangNhapSinhVien '" + Program.maSV + "'," + txtMatKhau.Text;
-            else if (rbtnGiangVien.Checked)
+            if (rbSinhVien.Checked)
+                str = "EXEC sp_DangNhapSinhVien '" + Program.maSV + "'," + edtMatKhau.Text;
+            else if (rbGiangVien.Checked)
                 str = "EXEC sp_DangNhapGiangVien '" + Program.mLogin + "'";
 
             try
@@ -116,62 +114,57 @@ namespace TN
                 if (Program.myReader == null) return;
                 Program.myReader.Read();
 
-                Program.username = Program.myReader.GetString(0); //Lay username
+                Program.username = Program.myReader.GetString(0);
 
-            
-            
-            if (Convert.IsDBNull(Program.username))
-            {
-                MessageBox.Show("Login nhập vào không có quyền\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                if (Convert.IsDBNull(Program.username))
+                {
+                    MessageBox.Show("Login nhập vào không có quyền\nXem lại username và password", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            Program.mHoTen = Program.myReader.GetString(1);
-            Program.mGroup = Program.myReader.GetString(2);
-            Program.myReader.Close();
-            Program.con.Close();
+                Program.mHoTen = Program.myReader.GetString(1);
+                Program.mGroup = Program.myReader.GetString(2);
+                Program.myReader.Close();
+                Program.con.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Login nhập vào không có quyền\nXem lại username và password", "Dialog", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Login nhập vào không có quyền\nXem lại username và password\n", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            Hide();
+
             if (Program.mGroup.Equals("SINHVIEN"))
             {
-                this.Hide();
+              
                 Program.frmMainSinhVien = new frmMainSinhVien();
                 Program.frmMainSinhVien.siMaSV.Caption = "Mã SV: " + Program.username;
                 Program.frmMainSinhVien.siHoTen.Caption = "Mã SV: " + Program.mHoTen;
                 Program.frmMainSinhVien.siNhom.Caption = "Nhóm: SINHVIEN";
-               
 
                 Program.frmMainSinhVien.ShowDialog();
-                Close();
+                
             }
             else
-            {
-                this.Hide();
+            {    
                 Program.frmChinh = new frmMain();
-                Program.frmChinh.siMaNv.Caption = "Mã User: " + Program.username;
+                Program.frmChinh.siMaNv.Caption = "Mã GV: " + Program.username;
                 Program.frmChinh.siHoTen.Caption = "Họ Tên: " + Program.mHoTen;
                 Program.frmChinh.siNhom.Caption = "Nhóm: " + Program.mGroup;
 
                 Program.frmChinh.btnDangNhap.Enabled = false;
                 Program.frmChinh.btnTaoTaiKhoan.Enabled = true;
                 Program.frmChinh.btnDangXuat.Enabled = true;
-                Program.frmChinh.pageThi.Visible = true;
+                Program.frmChinh.pageBaoCao.Visible = true;
                 Program.frmChinh.pageNhapXuat.Visible = true;
 
-               
+
                 Program.frmChinh.ShowDialog();
-                Close();
-
-
 
             }
 
-
+            Close();
 
         }
 
@@ -184,14 +177,16 @@ namespace TN
         {
             if (cbHienMK.Checked)
             {
-                txtMatKhau.UseSystemPasswordChar = false;
+                edtMatKhau.UseSystemPasswordChar = false;
+                cbHienMK.Text = "Ẩn MK";
             }
             else
             {
-                txtMatKhau.UseSystemPasswordChar = true;
+                edtMatKhau.UseSystemPasswordChar = true;
+                cbHienMK.Text = "Hiện MK";
             }
         }
-        
+
     }
 
 }

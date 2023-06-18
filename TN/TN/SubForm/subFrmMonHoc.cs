@@ -16,10 +16,13 @@ namespace TN.SubForm
 
         public String maMH = "";
         public String tenMH = "";
+        
         public subFrmMonHoc()
         {
             InitializeComponent();
         }
+
+       
 
         private void mONHOCBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
@@ -31,13 +34,22 @@ namespace TN.SubForm
 
         private void subFrmMonHoc_Load(object sender, EventArgs e)
         {
+           
             this.monHocTableAdapter.Connection.ConnectionString = Program.conStr;
             this.monHocTableAdapter.Fill(this.tNDataSet.MONHOC);
+
+           
+
 
         }
 
         private void btnChon_Click(object sender, EventArgs e)
         {
+            if (bdsMonHoc.Count == 0)
+            {
+                btnChon.Visible = false;
+                return;
+            }
             DataRowView drv = ((DataRowView)(bdsMonHoc.Current));
             maMH = drv["MAMH"].ToString().Trim();
             tenMH = drv["TENMH"].ToString().Trim();
@@ -50,7 +62,7 @@ namespace TN.SubForm
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Dispose();
         }
     }
 }

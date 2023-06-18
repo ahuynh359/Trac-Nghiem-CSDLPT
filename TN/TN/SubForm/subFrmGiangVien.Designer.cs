@@ -36,13 +36,13 @@ namespace TN.SubForm
             this.tableAdapterManager = new TN.TNDataSetTableAdapters.TableAdapterManager();
             this.gcGiaoVien = new DevExpress.XtraGrid.GridControl();
             this.gvGiaoVien = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.btnChon = new System.Windows.Forms.Button();
-            this.btnThoat = new System.Windows.Forms.Button();
             this.colMAGV = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colHO = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTEN = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDIACHI = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMAKH = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnChon = new System.Windows.Forms.Button();
+            this.btnThoat = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tNDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsGiaoVien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcGiaoVien)).BeginInit();
@@ -81,11 +81,13 @@ namespace TN.SubForm
             // gcGiaoVien
             // 
             this.gcGiaoVien.DataSource = this.bdsGiaoVien;
+            this.gcGiaoVien.EmbeddedNavigator.UseWaitCursor = true;
             this.gcGiaoVien.Location = new System.Drawing.Point(0, 26);
             this.gcGiaoVien.MainView = this.gvGiaoVien;
             this.gcGiaoVien.Name = "gcGiaoVien";
             this.gcGiaoVien.Size = new System.Drawing.Size(770, 370);
             this.gcGiaoVien.TabIndex = 1;
+            this.gcGiaoVien.UseWaitCursor = true;
             this.gcGiaoVien.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvGiaoVien});
             // 
@@ -99,26 +101,6 @@ namespace TN.SubForm
             this.colMAKH});
             this.gvGiaoVien.GridControl = this.gcGiaoVien;
             this.gvGiaoVien.Name = "gvGiaoVien";
-            // 
-            // btnChon
-            // 
-            this.btnChon.Location = new System.Drawing.Point(232, 403);
-            this.btnChon.Name = "btnChon";
-            this.btnChon.Size = new System.Drawing.Size(75, 35);
-            this.btnChon.TabIndex = 2;
-            this.btnChon.Text = "Chọn";
-            this.btnChon.UseVisualStyleBackColor = true;
-            this.btnChon.Click += new System.EventHandler(this.btnChon_Click);
-            // 
-            // btnThoat
-            // 
-            this.btnThoat.Location = new System.Drawing.Point(392, 402);
-            this.btnThoat.Name = "btnThoat";
-            this.btnThoat.Size = new System.Drawing.Size(75, 36);
-            this.btnThoat.TabIndex = 3;
-            this.btnThoat.Text = "Thoát";
-            this.btnThoat.UseVisualStyleBackColor = true;
-            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
             // 
             // colMAGV
             // 
@@ -165,6 +147,28 @@ namespace TN.SubForm
             this.colMAKH.VisibleIndex = 4;
             this.colMAKH.Width = 112;
             // 
+            // btnChon
+            // 
+            this.btnChon.Location = new System.Drawing.Point(232, 403);
+            this.btnChon.Name = "btnChon";
+            this.btnChon.Size = new System.Drawing.Size(75, 35);
+            this.btnChon.TabIndex = 2;
+            this.btnChon.Text = "Chọn";
+            this.btnChon.UseVisualStyleBackColor = true;
+            this.btnChon.UseWaitCursor = true;
+            this.btnChon.Click += new System.EventHandler(this.btnChon_Click);
+            // 
+            // btnThoat
+            // 
+            this.btnThoat.Location = new System.Drawing.Point(392, 402);
+            this.btnThoat.Name = "btnThoat";
+            this.btnThoat.Size = new System.Drawing.Size(75, 36);
+            this.btnThoat.TabIndex = 3;
+            this.btnThoat.Text = "Thoát";
+            this.btnThoat.UseVisualStyleBackColor = true;
+            this.btnThoat.UseWaitCursor = true;
+            this.btnThoat.Click += new System.EventHandler(this.btnThoat_Click);
+            // 
             // subFrmGiangVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -174,7 +178,9 @@ namespace TN.SubForm
             this.Controls.Add(this.btnChon);
             this.Controls.Add(this.gcGiaoVien);
             this.Name = "subFrmGiangVien";
-            this.Text = "subFrmGiangVien";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Giảng Viên";
+            this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.subFrmGiangVien_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tNDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsGiaoVien)).EndInit();

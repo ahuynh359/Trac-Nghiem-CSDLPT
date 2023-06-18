@@ -142,7 +142,8 @@ namespace TN.SubForm
             this.Controls.Add(this.btnChon);
             this.Controls.Add(this.gcMonHoc);
             this.Name = "subFrmMonHoc";
-            this.Text = "subFrmMonHoc";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Môn Học";
             this.Load += new System.EventHandler(this.subFrmMonHoc_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tNDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsMonHoc)).EndInit();
