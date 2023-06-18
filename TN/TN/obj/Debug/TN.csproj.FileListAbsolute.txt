@@ -216,3 +216,9 @@ C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.RptForm.rptXemKetQua
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.frmTaoTaiKhoan.resources
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.SubForm.subFrmGVChuaDki.resources
 C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.SubForm.subFrmSVDaThi.resources
+C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.frmKhoa.resources
+C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.FrmSinhVien.resources
+C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.FrmGiaoVien.resources
+C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.FrmXemDSDangKy.resources
+C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.RptXemDSDangKy.resources
+C:\Users\ASUS\Desktop\Trac-Nghiem-CSDLPT\TN\TN\obj\Debug\TN.FrmGVDK.resources

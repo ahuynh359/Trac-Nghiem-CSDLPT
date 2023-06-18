@@ -57,6 +57,7 @@ namespace TN
             if (Program.mGroup == "TRUONG")
             {
                 setButtonVisibilityOff();
+               
 
             }
             // Chỉ có cơ sở được chỉnh sửa
@@ -163,8 +164,8 @@ namespace TN
             btnXoa.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             btnGhi.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             btnHoanTac.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            btnLamMoi.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-            btnThoat.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+          
+          
         }
 
         private void toggleInput(bool state)

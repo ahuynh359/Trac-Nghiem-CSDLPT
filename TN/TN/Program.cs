@@ -61,6 +61,11 @@ namespace TN
         public static subFrmGVChuaDki subFrmGVChuaDki;
         public static subFrmSVDaThi subFrmSVDaThi;
 
+        public static String FULLNAME_PATTERN =
+    "^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" +
+    "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" +
+    "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$";
+
         //Kết nối về server phân mảnh
         public static int ketNoi()
         {

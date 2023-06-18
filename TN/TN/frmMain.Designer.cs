@@ -62,6 +62,7 @@ namespace TN
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
+            this.btnDSDkiThi = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.popupMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).BeginInit();
@@ -94,9 +95,10 @@ namespace TN
             this.btnChuanBiThi,
             this.btnCbThi,
             this.btnHSThi,
-            this.btnXemKetQua});
+            this.btnXemKetQua,
+            this.btnDSDkiThi});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 25;
+            this.ribbon.MaxItemId = 26;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.pageNhapXuat,
@@ -266,6 +268,7 @@ namespace TN
             this.btnCbThi.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnCbThi.ImageOptions.SvgImage")));
             this.btnCbThi.LargeWidth = 80;
             this.btnCbThi.Name = "btnCbThi";
+            this.btnCbThi.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnCbThi_ItemClick);
             // 
             // btnHSThi
             // 
@@ -317,6 +320,7 @@ namespace TN
             // 
             this.ribbonPageGroup2.ItemLinks.Add(this.btnBangDiemMonHoc);
             this.ribbonPageGroup2.ItemLinks.Add(this.btnXemKetQua);
+            this.ribbonPageGroup2.ItemLinks.Add(this.btnDSDkiThi);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
             this.ribbonPageGroup2.Text = "QUẢN LÍ BÀI THI";
             // 
@@ -349,6 +353,15 @@ namespace TN
             // xtraTabbedMdiManager1
             // 
             this.xtraTabbedMdiManager1.MdiParent = this;
+            // 
+            // btnDSDkiThi
+            // 
+            this.btnDSDkiThi.Caption = "DS ĐĂNG KÍ THI";
+            this.btnDSDkiThi.Id = 25;
+            this.btnDSDkiThi.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btnDSDkiThi.ImageOptions.SvgImage")));
+            this.btnDSDkiThi.LargeWidth = 80;
+            this.btnDSDkiThi.Name = "btnDSDkiThi";
+            this.btnDSDkiThi.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDSDkiThi_ItemClick);
             // 
             // frmMain
             // 
@@ -407,5 +420,6 @@ namespace TN
         private DevExpress.XtraBars.PopupMenu popupMenu1;
         private DevExpress.XtraBars.BarButtonItem btnHSThi;
         private DevExpress.XtraBars.BarButtonItem btnXemKetQua;
+        private DevExpress.XtraBars.BarButtonItem btnDSDkiThi;
     }
 }

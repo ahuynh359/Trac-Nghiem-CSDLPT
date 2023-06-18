@@ -76,11 +76,41 @@
     <Compile Include="CauHoi.Designer.cs">
       <DependentUpon>CauHoi.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmGiaoVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGiaoVien.Designer.cs">
+      <DependentUpon>frmGiaoVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGVDK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGVDK.Designer.cs">
+      <DependentUpon>FrmGVDK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmKhoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmKhoa.Designer.cs">
+      <DependentUpon>frmKhoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSinhVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSinhVien.Designer.cs">
+      <DependentUpon>frmSinhVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTaoTaiKhoan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmTaoTaiKhoan.Designer.cs">
       <DependentUpon>frmTaoTaiKhoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmXemDSDangKy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmXemDSDangKy.Designer.cs">
+      <DependentUpon>FrmXemDSDangKy.cs</DependentUpon>
     </Compile>
     <Compile Include="RptForm\frmBangDiem.cs">
       <SubType>Form</SubType>
@@ -144,6 +174,12 @@
     <Compile Include="RptForm\rptXemBangDiem.Designer.cs">
       <DependentUpon>rptXemBangDiem.cs</DependentUpon>
     </Compile>
+    <Compile Include="RptForm\RptXemDSDangKy.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RptForm\RptXemDSDangKy.Designer.cs">
+      <DependentUpon>RptXemDSDangKy.cs</DependentUpon>
+    </Compile>
     <Compile Include="RptForm\rptXemKetQuaThi.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -197,8 +233,23 @@
     <EmbeddedResource Include="CauHoi.resx">
       <DependentUpon>CauHoi.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmGiaoVien.resx">
+      <DependentUpon>frmGiaoVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGVDK.resx">
+      <DependentUpon>FrmGVDK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmKhoa.resx">
+      <DependentUpon>frmKhoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSinhVien.resx">
+      <DependentUpon>frmSinhVien.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTaoTaiKhoan.resx">
       <DependentUpon>frmTaoTaiKhoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmXemDSDangKy.resx">
+      <DependentUpon>FrmXemDSDangKy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RptForm\frmBangDiem.resx">
       <DependentUpon>frmBangDiem.cs</DependentUpon>
@@ -239,6 +290,9 @@
     </Compile>
     <EmbeddedResource Include="RptForm\rptXemBangDiem.resx">
       <DependentUpon>rptXemBangDiem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RptForm\RptXemDSDangKy.resx">
+      <DependentUpon>RptXemDSDangKy.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RptForm\rptXemKetQuaThi.resx">
       <DependentUpon>rptXemKetQuaThi.cs</DependentUpon>

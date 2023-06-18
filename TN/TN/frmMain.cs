@@ -70,14 +70,14 @@ namespace TN
 
         private void btnKhoaLop_ItemClick(object sender, ItemClickEventArgs e)
         {
-            /*  Form frm = checkExists(typeof(frmKhoaLop));
-              if (frm != null) frm.Activate();
-              else
-              {
-                  frmKhoaLop f = new frmKhoaLop();
-                  f.MdiParent = this;
-                  f.Show();
-              }*/
+              Form frm = checkExists(typeof(frmKhoa));
+            if (frm != null) frm.Activate();
+            else
+            {
+                frmKhoa f = new frmKhoa();
+                f.MdiParent = this;
+                f.Show();
+            }
         }
 
         private void btnNhapDe_ItemClick(object sender, ItemClickEventArgs e)
@@ -94,26 +94,26 @@ namespace TN
 
         private void btnSinhVien_ItemClick(object sender, ItemClickEventArgs e)
         {
-            /* Form frm = checkExists(typeof(frmSinhVien));
+             Form frm = checkExists(typeof(FrmSinhVien));
              if (frm != null) frm.Activate();
              else
              {
-                 frmSinhVien f = new frmSinhVien();
+                FrmSinhVien f = new FrmSinhVien();
                  f.MdiParent = this;
                  f.Show();
-             }*/
+             }
         }
 
         private void btnGiaoVien_ItemClick(object sender, ItemClickEventArgs e)
         {
-            /* Form frm = checkExists(typeof(frmGiaoVien));
+             Form frm = checkExists(typeof(FrmGiaoVien));
              if (frm != null) frm.Activate();
              else
              {
-                 frmGiaoVien f = new frmGiaoVien();
+                FrmGiaoVien f = new FrmGiaoVien();
                  f.MdiParent = this;
                  f.Show();
-             }*/
+             }
         }
 
         private void btnBangDiemMonHoc_ItemClick(object sender, ItemClickEventArgs e)
@@ -182,12 +182,46 @@ namespace TN
             if (Program.mGroup.Equals("GIANGVIEN"))
             {
                 btnMonHoc.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                btnBangDiemMonHoc.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                btnKhoaLop.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                btnSinhVien.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                btnGiaoVien.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+                btnCbThi.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
                 btnTaoTaiKhoan.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
                 pageBaoCao.Visible = false;
             }
             if (Program.mGroup.Equals("COSO") || Program.mGroup.Equals("TRUONG"))
             {
                 btnHSThi.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            }
+        }
+
+        private void btnCbThi_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Form frm = this.checkExists(typeof(FrmGVDK));
+            if (frm != null)
+            {
+                frm.Activate();
+            }
+            else
+            {
+                FrmGVDK f = new FrmGVDK();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnDSDkiThi_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Form frm = this.checkExists(typeof(FrmXemDSDangKy));
+            if (frm != null)
+            {
+                frm.Activate();
+            }
+            else
+            {
+                FrmXemDSDangKy f = new FrmXemDSDangKy();
+                f.Show();
             }
         }
     }
