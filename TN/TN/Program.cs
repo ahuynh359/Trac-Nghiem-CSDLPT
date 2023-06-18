@@ -14,24 +14,27 @@ namespace TN
 
         public static SqlConnection con = new SqlConnection();
         public static string conStr;
-        public static string conPublisher = "Data Source=ABC" + ";Initial Catalog=TN" + ";Integrated Security=true";
+        public static string conPublisher = "Data Source=DESKTOP-MGN3IP8\\SERVER" + ";Initial Catalog=TN" + ";Integrated Security=true";
 
 
         public static SqlDataReader myReader;
-        public static string serverName = "";
-        public static string username = "";
-        public static string mLogin = "";
-        public static string password = "";
+        public static string serverName = "DESKTOP-MGN3IP8\\SERVER";
+        public static string username = "HTKN";
+        public static string mLogin = "HTKN";
+        public static string password = "12";
 
         public static string database = "TN";
         public static string remoteLogin = "HTKN";
-        public static string remoteLoginPassword = "123";
+        public static string remoteLoginPassword = "12";
         public static string mLoginDN = "";
         public static string passwordDN = "";
         public static string mGroup = "";
         public static string mHoTen = "";
         public static int mCoSo = 0;
-
+        public static String FULLNAME_PATTERN =
+    "^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" +
+    "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" +
+    "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]+$";
         //Lưu Db phân mảnh khi đăng nhập
         public static BindingSource bsDanhSachPhanManh = new BindingSource();
         public static frmMain frmChinh;
@@ -109,7 +112,15 @@ namespace TN
 
             }
         }
-
+        public static DataTable execSqlDataTable(String cmd)
+        {
+            DataTable dt = new DataTable();
+            if (Program.con.State == ConnectionState.Closed) Program.con.Open();
+            SqlDataAdapter da = new SqlDataAdapter(cmd, con);
+            da.Fill(dt);
+            con.Close();
+            return dt;
+        }
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

@@ -34,12 +34,16 @@ namespace TN
         private void frmMonHoc_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'tNDataSet.GIAOVIEN_DANGKY' table. You can move, or remove it, as needed.
+            this.giaoVien_DangKyTableAdapter.Connection.ConnectionString = Program.conStr;
             this.giaoVien_DangKyTableAdapter.Fill(this.DS.GIAOVIEN_DANGKY);
             // TODO: This line of code loads data into the 'tNDataSet.BODE' table. You can move, or remove it, as needed.
+            this.boDeTableAdapter.Connection.ConnectionString = Program.conStr;
             this.boDeTableAdapter.Fill(this.DS.BODE);
             // TODO: This line of code loads data into the 'tNDataSet.BANGDIEM' table. You can move, or remove it, as needed.
+            this.bangDiemTableAdapter.Connection.ConnectionString = Program.conStr;
             this.bangDiemTableAdapter.Fill(this.DS.BANGDIEM);
             // TODO: This line of code loads data into the 'tNDataSet.MONHOC' table. You can move, or remove it, as needed.
+            this.monHocTableAdapter.Connection.ConnectionString = Program.conStr;
             this.monHocTableAdapter.Fill(this.DS.MONHOC);
 
 
@@ -390,6 +394,7 @@ namespace TN
                 if (isAdd)
                 {
                     bdsMonHoc.RemoveCurrent();
+                    this.monHocTableAdapter.Connection.ConnectionString = Program.conStr;
                     this.monHocTableAdapter.Fill(this.DS.MONHOC);
                     gcMonHoc.Enabled = true;
                     toggleButton();
@@ -466,6 +471,11 @@ namespace TN
                 edtTenMH.Enabled = true;
                 btnGhi.Enabled = true;
             }
+        }
+
+        private void gcMonHoc_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

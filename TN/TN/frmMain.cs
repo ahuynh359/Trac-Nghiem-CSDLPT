@@ -59,11 +59,11 @@ namespace TN
 
         private void btnKhoaLop_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Form frm = checkExists(typeof(frmKhoaLop));
+            Form frm = checkExists(typeof(FrmKhoa));
             if (frm != null) frm.Activate();
             else
             {
-                frmKhoaLop f = new frmKhoaLop();
+                FrmKhoa f = new FrmKhoa();
                 f.MdiParent = this;
                 f.Show();
             }
@@ -83,11 +83,11 @@ namespace TN
 
         private void btnSinhVien_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Form frm = checkExists(typeof(frmSinhVien));
+            Form frm = checkExists(typeof(FrmSinhVien));
             if (frm != null) frm.Activate();
             else
             {
-                frmSinhVien f = new frmSinhVien();
+                FrmSinhVien f = new FrmSinhVien();
                 f.MdiParent = this;
                 f.Show();
             }
@@ -95,11 +95,34 @@ namespace TN
 
         private void btnGiaoVien_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Form frm = checkExists(typeof(frmGiaoVien));
+            Form frm = checkExists(typeof(FrmGiaoVien));
             if (frm != null) frm.Activate();
             else
             {
-                frmGiaoVien f = new frmGiaoVien();
+                FrmGiaoVien f = new FrmGiaoVien();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+        private void btnCBThi_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Form frm = checkExists(typeof(FrmGVDK));
+            if (frm != null) frm.Activate();
+            else
+            {
+                FrmGVDK f = new FrmGVDK();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnXemDSDangKy_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Form frm = checkExists(typeof(FrmXemDSDangKy));
+            if (frm != null) frm.Activate();
+            else
+            {
+                FrmXemDSDangKy f = new FrmXemDSDangKy();
                 f.MdiParent = this;
                 f.Show();
             }
